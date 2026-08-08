@@ -1,0 +1,34 @@
+name: API Tests
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [predeploy, main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Start server in background
+        run: |
+          node server.js &
+          sleep 3
+
+      - name: Run Chunk 1 (57 tests)
+        run: newman run Rosetta_API_Tests_Chunk1_of_2.postman_collection.json --env-var baseUrl=${{ secrets.TEST_BASE_URL || 'http://localhost:3000/api' }} --env-var token=${{ secrets.TEST_TOKEN || 'test-token' }}
+
+      - name: Run Chunk 2 (50 tests)
+        run: newman run Rosetta_API_Tests_Chunk2_of_2.postman_collection.json --env-var baseUrl=${{ secrets.TEST_BASE_URL || 'http://localhost:3000/api' }} --env-var token=${{ secrets.TEST_TOKEN || 'test-token' }}
