@@ -1,8 +1,8 @@
-name: Rosetta CI/CD Pipeline (Postman Quality Gate & VPS Deploy)
+name: Rosetta CI/CD Pipeline (Quality Gate & VPS Deploy)
 
 on:
   push:
-    branches: [ "main", "development" ]
+    branches: [ "main", "predeploy" ]
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
@@ -13,10 +13,10 @@ permissions:
 
 jobs:
   # ==============================================================
-  # STAGE 1: POSTMAN AUTOMATED TEST SUITE (Runs on development & main)
+  # STAGE 1: POSTMAN AUTOMATED QUALITY GATE (107 Tests)
   # ==============================================================
   postman-quality-gate:
-    name: 🧪 Postman & Newman Automated Quality Gate
+    name: 🧪 Automated Quality Gate (107 Tests)
     runs-on: ubuntu-latest
 
     steps:
@@ -32,7 +32,7 @@ jobs:
       - name: Install Dependencies
         run: |
           npm ci || npm install
-          npm install -g newman newman-reporter-htmlextra
+          npm install -g newman
 
       - name: Validate Frontend Production Build
         run: npm run build
@@ -40,25 +40,19 @@ jobs:
       - name: Start Rosetta Backend Server
         run: |
           node server.js &
-          echo "SERVER_PID=$!" >> $GITHUB_ENV
-          echo "Waiting for server to boot..."
           sleep 3
 
-      - name: Run Postman Collection via Newman CLI
+      - name: Run Chunk 1 (57 tests)
         run: |
-          mkdir -p reports
-          newman run postman/rosetta_collection.json \
-            -e postman/rosetta_environment.json \
-            --reporters cli,htmlextra \
-            --reporter-htmlextra-export reports/newman_report.html
+          newman run Rosetta_API_Tests_Chunk1_of_2.postman_collection.json \
+            --env-var baseUrl=http://localhost:3000/api \
+            --env-var token=test-token
 
-      - name: Upload Postman Test Report Artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: postman-newman-test-report
-          path: reports/newman_report.html
-          retention-days: 14
+      - name: Run Chunk 2 (50 tests)
+        run: |
+          newman run Rosetta_API_Tests_Chunk2_of_2.postman_collection.json \
+            --env-var baseUrl=http://localhost:3000/api \
+            --env-var token=test-token
 
   # ==============================================================
   # STAGE 2: PRODUCTION DEPLOYMENT (Only triggers on main branch)
