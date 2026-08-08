@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   web:
-    image: ghcr.io/mdtha-x/rosetta:latest
+    image: ghcr.io/mdtha-x/rosetta-for-all:latest
     restart: always
     ports:
       - "80:3000"
