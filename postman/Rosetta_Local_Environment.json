@@ -1,0 +1,61 @@
+{
+  "id": "e1a2b3c4-d5e6-7f8a-9b0c-1d2e3f4a5b6c",
+  "name": "Rosetta Local (Localhost)",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "token",
+      "value": "test-token",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "userId",
+      "value": "u-2",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "connectionId",
+      "value": "conn-1",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "channelId",
+      "value": "c-1",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "cardId",
+      "value": "card-1",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "tempCardId",
+      "value": "card-2",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "messageId",
+      "value": "msg-1",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "otherUserMessageId",
+      "value": "msg-2",
+      "type": "default",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment"
+}

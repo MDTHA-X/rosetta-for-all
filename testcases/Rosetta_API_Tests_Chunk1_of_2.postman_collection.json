@@ -2436,5 +2436,19 @@
       "key": "channelId",
       "value": "c-1"
     }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "if (!pm.variables.get(\"userId\") || pm.variables.get(\"userId\") === \"\") { pm.variables.set(\"userId\", \"u-2\"); }",
+          "if (!pm.variables.get(\"connectionId\") || pm.variables.get(\"connectionId\") === \"\") { pm.variables.set(\"connectionId\", \"conn-1\"); }",
+          "if (!pm.variables.get(\"channelId\") || pm.variables.get(\"channelId\") === \"\") { pm.variables.set(\"channelId\", \"c-1\"); }",
+          "if (!pm.variables.get(\"token\") || pm.variables.get(\"token\") === \"\") { pm.variables.set(\"token\", \"test-token\"); }"
+        ]
+      }
+    }
   ]
 }
