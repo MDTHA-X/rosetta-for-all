@@ -946,11 +946,32 @@ app.get('*', (req, res) => {
     res.status(200).send(`
       <!DOCTYPE html>
       <html>
-        <head><title>Rosetta Hub API</title></head>
-        <body style="font-family:sans-serif; background:#0f172a; color:#f8fafc; padding:2rem; text-align:center;">
-          <h1>🚀 Rosetta API Service</h1>
-          <p>Rosetta Hub is running on port ${PORT}.</p>
-          <p><a href="/api/health" style="color:#38bdf8;">Check API Health</a></p>
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>Welcome to Rosetta , CSE-JU</title>
+          <style>
+            * { margin:0; padding:0; box-sizing:border-box; }
+            html, body {
+              width: 100vw;
+              height: 100vh;
+              background-color: #800000;
+              color: #ffffff;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+              text-align: center;
+            }
+            h1 {
+              font-size: 3.5rem;
+              font-weight: 800;
+              text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            }
+          </style>
+        </head>
+        <body>
+          <h1>Welcome to Rosetta , CSE-JU</h1>
         </body>
       </html>
     `);
