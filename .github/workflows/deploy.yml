@@ -26,7 +26,7 @@ jobs:
       - name: Set up Node.js Environment
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
           cache-dependency-path: 'server/package.json'
 
@@ -51,14 +51,14 @@ jobs:
       - name: Run Chunk 1 (57 tests)
         run: |
           cd server
-          newman run postman/Rosetta_API_Tests_Chunk1_of_2.postman_collection.json \
+          newman run testcases/Rosetta_API_Tests_Chunk1_of_2.postman_collection.json \
             --env-var baseUrl=http://localhost:3000/api \
             --env-var token=test-token
 
       - name: Run Chunk 2 (50 tests)
         run: |
           cd server
-          newman run postman/Rosetta_API_Tests_Chunk2_of_2.postman_collection.json \
+          newman run testcases/Rosetta_API_Tests_Chunk2_of_2.postman_collection.json \
             --env-var baseUrl=http://localhost:3000/api \
             --env-var token=test-token
 
