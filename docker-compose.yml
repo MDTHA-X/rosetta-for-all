@@ -6,3 +6,9 @@ services:
       - "80:3000"
     environment:
       - PORT=3000
+      - NODE_ENV=production
+    volumes:
+      - rosetta-data:/app/data
+
+volumes:
+  rosetta-data:

@@ -40,7 +40,7 @@ jobs:
       - name: Start Rosetta Backend Server
         run: |
           node server.js &
-          sleep 3
+          npx wait-on http://localhost:3000/api/health --timeout 15000
 
       - name: Run Chunk 1 (57 tests)
         run: |
@@ -84,6 +84,15 @@ jobs:
           context: .
           push: true
           tags: ${{ env.IMAGE_NAME }}:latest
+
+      - name: Copy docker-compose.yml to Azure VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          source: "docker-compose.yml"
+          target: "~/app"
 
       - name: Deploy to Azure VPS via SSH
         uses: appleboy/ssh-action@v1.0.3
