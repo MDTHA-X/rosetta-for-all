@@ -1,9 +1,19 @@
 services:
-  web:
-    image: ghcr.io/mdtha-x/rosetta-for-all:latest
+  client:
+    image: ghcr.io/${GITHUB_REPOSITORY:-mdtha-x/rosetta-for-all}-client:latest
+    build: ./client
     restart: always
     ports:
-      - "80:3000"
+      - "80:80"
+    depends_on:
+      - server
+
+  server:
+    image: ghcr.io/${GITHUB_REPOSITORY:-mdtha-x/rosetta-for-all}-server:latest
+    build: ./server
+    restart: always
+    expose:
+      - "3000"
     environment:
       - PORT=3000
       - NODE_ENV=production
