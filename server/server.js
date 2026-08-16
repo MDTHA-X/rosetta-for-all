@@ -4,6 +4,8 @@ import path from 'path';
 import fs from 'fs';
 import crypto from 'crypto';
 import { fileURLToPath } from 'url';
+import connectDB from './config/db.js';
+import cardRoutes from './routes/cardRoutes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -233,6 +235,9 @@ api.get('/stats', (req, res) => {
     totalConnections: db.connections?.length || 0
   });
 });
+
+// MVC Routes
+api.use('/cards', authenticateToken(true), cardRoutes);
 
 // ----------------------------------------------------------------------------
 // 2. AUTH & USERS ENDPOINTS
@@ -824,8 +829,9 @@ api.patch('/board/config', authenticateToken(true), (req, res) => {
 });
 
 // ----------------------------------------------------------------------------
-// 7. CARDS ENDPOINTS (Chunk 2)
+// 7. CARDS ENDPOINTS (Chunk 2) - Migrated to MVC
 // ----------------------------------------------------------------------------
+/*
 api.get('/cards', authenticateToken(true), (req, res) => {
   const { list, priority, assignee, assignedTo, search, q } = req.query;
   let results = [...db.cards];
@@ -939,6 +945,7 @@ api.delete('/cards/:id', authenticateToken(true), (req, res) => {
   saveData(db);
   res.status(200).json({ success: true, message: `Card "${deleted.title}" deleted successfully`, deletedId: deleted.id });
 });
+*/
 
 // ----------------------------------------------------------------------------
 // 8. MEMBERS COMPATIBILITY ENDPOINTS
@@ -1051,10 +1058,12 @@ app.get('*', (req, res) => {
   }
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`=============================================`);
-  console.log(`🚀 Rosetta Hub Server running at http://localhost:${PORT}`);
-  console.log(`📦 Health Endpoint: http://localhost:${PORT}/api/health`);
-  console.log(`📊 Stats Endpoint: http://localhost:${PORT}/api/stats`);
-  console.log(`=============================================`);
+connectDB().then(() => {
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`=============================================`);
+    console.log(`🚀 Rosetta Hub Server running at http://localhost:${PORT}`);
+    console.log(`📦 Health Endpoint: http://localhost:${PORT}/api/health`);
+    console.log(`📊 Stats Endpoint: http://localhost:${PORT}/api/stats`);
+    console.log(`=============================================`);
+  });
 });

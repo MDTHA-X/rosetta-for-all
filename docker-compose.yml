@@ -17,8 +17,20 @@ services:
     environment:
       - PORT=3000
       - NODE_ENV=production
+      - MONGO_URI=mongodb://mongodb:27017/rosetta
+    depends_on:
+      - mongodb
     volumes:
       - rosetta-data:/app/data
 
+  mongodb:
+    image: mongo:latest
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
 volumes:
   rosetta-data:
+  mongo-data:
