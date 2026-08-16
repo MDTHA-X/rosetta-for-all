@@ -123,8 +123,11 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            sudo systemctl stop nginx || true
+            sudo systemctl disable nginx || true
             mkdir -p ~/app && cd ~/app
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            docker compose down || true
             docker compose pull || true
             docker compose up -d --remove-orphans
             docker image prune -f
