@@ -3,7 +3,6 @@ import cors from 'cors';
 import path from 'path';
 import fs from 'fs';
 import crypto from 'crypto';
-global.crypto = crypto;
 import { fileURLToPath } from 'url';
 import connectDB from './config/db.js';
 import cardRoutes from './routes/cardRoutes.js';
