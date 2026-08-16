@@ -9,7 +9,7 @@
       "name": "Messages",
       "item": [
         {
-          "name": "TC058 - GET /messages - returns 200 with messages array for valid channelId",
+          "name": "GET /messages - returns 200 with messages array for valid channelId",
           "request": {
             "method": "GET",
             "header": [
@@ -52,7 +52,7 @@
           "response": []
         },
         {
-          "name": "TC059 - GET /messages - missing channelId query param returns 400",
+          "name": "GET /messages - missing channelId query param returns 400",
           "request": {
             "method": "GET",
             "header": [
@@ -88,7 +88,7 @@
           "response": []
         },
         {
-          "name": "TC060 - GET /messages - response includes hasMore boolean field",
+          "name": "GET /messages - response includes hasMore boolean field",
           "request": {
             "method": "GET",
             "header": [
@@ -131,7 +131,7 @@
           "response": []
         },
         {
-          "name": "TC061 - GET /messages - request without token returns 401",
+          "name": "GET /messages - request without token returns 401",
           "request": {
             "method": "GET",
             "header": [],
@@ -167,7 +167,7 @@
           "response": []
         },
         {
-          "name": "TC062 - POST /messages - successful message post returns 201",
+          "name": "POST /messages - successful message post returns 201",
           "request": {
             "method": "POST",
             "header": [
@@ -217,7 +217,7 @@
           "response": []
         },
         {
-          "name": "TC063 - POST /messages - missing text field returns 400",
+          "name": "POST /messages - missing text field returns 400",
           "request": {
             "method": "POST",
             "header": [
@@ -267,7 +267,7 @@
           "response": []
         },
         {
-          "name": "TC064 - POST /messages - missing channelId returns 400",
+          "name": "POST /messages - missing channelId returns 400",
           "request": {
             "method": "POST",
             "header": [
@@ -317,7 +317,7 @@
           "response": []
         },
         {
-          "name": "TC065 - POST /messages - request without token returns 401",
+          "name": "POST /messages - request without token returns 401",
           "request": {
             "method": "POST",
             "header": [
@@ -362,7 +362,7 @@
           "response": []
         },
         {
-          "name": "TC066 - PATCH /messages/:id - successful edit returns 200 with isEdited true",
+          "name": "PATCH /messages/:id - successful edit returns 200 with isEdited true",
           "request": {
             "method": "PATCH",
             "header": [
@@ -414,7 +414,7 @@
           "response": []
         },
         {
-          "name": "TC067 - PATCH /messages/:id - editing another user's message returns 403",
+          "name": "PATCH /messages/:id - editing another user's message returns 403",
           "request": {
             "method": "PATCH",
             "header": [
@@ -465,7 +465,7 @@
           "response": []
         },
         {
-          "name": "TC068 - PATCH /messages/:id - request without token returns 401",
+          "name": "PATCH /messages/:id - request without token returns 401",
           "request": {
             "method": "PATCH",
             "header": [
@@ -511,7 +511,7 @@
           "response": []
         },
         {
-          "name": "TC069 - DELETE /messages/:id - successful delete returns 200",
+          "name": "DELETE /messages/:id - successful delete returns 200",
           "request": {
             "method": "DELETE",
             "header": [
@@ -548,7 +548,7 @@
           "response": []
         },
         {
-          "name": "TC070 - DELETE /messages/:id - deleting another user's message returns 403",
+          "name": "DELETE /messages/:id - deleting another user's message returns 403",
           "request": {
             "method": "DELETE",
             "header": [
@@ -585,7 +585,7 @@
           "response": []
         },
         {
-          "name": "TC071 - DELETE /messages/:id - request without token returns 401",
+          "name": "DELETE /messages/:id - request without token returns 401",
           "request": {
             "method": "DELETE",
             "header": [],
@@ -621,7 +621,7 @@
       "name": "Board Config",
       "item": [
         {
-          "name": "TC072 - GET /board/config - returns 200 with title and columns array",
+          "name": "GET /board/config - returns 200 with title and columns array",
           "request": {
             "method": "GET",
             "header": [
@@ -661,7 +661,7 @@
           "response": []
         },
         {
-          "name": "TC073 - GET /board/config - each column has id and name fields",
+          "name": "GET /board/config - each column has id and name fields",
           "request": {
             "method": "GET",
             "header": [
@@ -700,7 +700,7 @@
           "response": []
         },
         {
-          "name": "TC074 - GET /board/config - request without token returns 401",
+          "name": "GET /board/config - request without token returns 401",
           "request": {
             "method": "GET",
             "header": [],
@@ -731,7 +731,7 @@
           "response": []
         },
         {
-          "name": "TC075 - PATCH /board/config - successful title update returns 200",
+          "name": "PATCH /board/config - successful title update returns 200",
           "request": {
             "method": "PATCH",
             "header": [
@@ -782,7 +782,7 @@
           "response": []
         },
         {
-          "name": "TC076 - PATCH /board/config - successful column rename persists on next GET",
+          "name": "PATCH /board/config - successful column rename persists on next GET",
           "request": {
             "method": "PATCH",
             "header": [
@@ -833,7 +833,7 @@
           "response": []
         },
         {
-          "name": "TC077 - PATCH /board/config - request without token returns 401",
+          "name": "PATCH /board/config - request without token returns 401",
           "request": {
             "method": "PATCH",
             "header": [
@@ -884,7 +884,7 @@
       "name": "Cards",
       "item": [
         {
-          "name": "TC078 - GET /cards - returns 200 with array of cards",
+          "name": "GET /cards - returns 200 with array of cards",
           "request": {
             "method": "GET",
             "header": [
@@ -921,7 +921,7 @@
           "response": []
         },
         {
-          "name": "TC079 - GET /cards - filtering by list query param returns only matching cards",
+          "name": "GET /cards - filtering by list query param returns only matching cards",
           "request": {
             "method": "GET",
             "header": [
@@ -964,7 +964,7 @@
           "response": []
         },
         {
-          "name": "TC080 - GET /cards - filtering by priority query param returns only matching cards",
+          "name": "GET /cards - filtering by priority query param returns only matching cards",
           "request": {
             "method": "GET",
             "header": [
@@ -1007,7 +1007,7 @@
           "response": []
         },
         {
-          "name": "TC081 - GET /cards - filtering by assignee query param returns only matching cards",
+          "name": "GET /cards - filtering by assignee query param returns only matching cards",
           "request": {
             "method": "GET",
             "header": [
@@ -1049,7 +1049,7 @@
           "response": []
         },
         {
-          "name": "TC082 - GET /cards - search query param matches title text",
+          "name": "GET /cards - search query param matches title text",
           "request": {
             "method": "GET",
             "header": [
@@ -1091,7 +1091,7 @@
           "response": []
         },
         {
-          "name": "TC083 - GET /cards - each card has a valid priority enum value",
+          "name": "GET /cards - each card has a valid priority enum value",
           "request": {
             "method": "GET",
             "header": [
@@ -1130,7 +1130,7 @@
           "response": []
         },
         {
-          "name": "TC084 - GET /cards - request without token returns 401",
+          "name": "GET /cards - request without token returns 401",
           "request": {
             "method": "GET",
             "header": [],
@@ -1160,7 +1160,7 @@
           "response": []
         },
         {
-          "name": "TC085 - POST /cards - successful card creation returns 201",
+          "name": "POST /cards - successful card creation returns 201",
           "request": {
             "method": "POST",
             "header": [
@@ -1210,7 +1210,7 @@
           "response": []
         },
         {
-          "name": "TC086 - POST /cards - missing title returns 400",
+          "name": "POST /cards - missing title returns 400",
           "request": {
             "method": "POST",
             "header": [
@@ -1260,7 +1260,7 @@
           "response": []
         },
         {
-          "name": "TC087 - POST /cards - invalid priority value returns 400",
+          "name": "POST /cards - invalid priority value returns 400",
           "request": {
             "method": "POST",
             "header": [
@@ -1310,7 +1310,7 @@
           "response": []
         },
         {
-          "name": "TC088 - POST /cards - invalid list value returns 400",
+          "name": "POST /cards - invalid list value returns 400",
           "request": {
             "method": "POST",
             "header": [
@@ -1360,7 +1360,7 @@
           "response": []
         },
         {
-          "name": "TC089 - POST /cards - created card appears in subsequent GET /cards",
+          "name": "POST /cards - created card appears in subsequent GET /cards",
           "request": {
             "method": "POST",
             "header": [
@@ -1410,7 +1410,7 @@
           "response": []
         },
         {
-          "name": "TC090 - POST /cards - response contains createdAt timestamp",
+          "name": "POST /cards - response contains createdAt timestamp",
           "request": {
             "method": "POST",
             "header": [
@@ -1461,7 +1461,7 @@
           "response": []
         },
         {
-          "name": "TC091 - POST /cards - assignee field is persisted correctly",
+          "name": "POST /cards - assignee field is persisted correctly",
           "request": {
             "method": "POST",
             "header": [
@@ -1512,7 +1512,7 @@
           "response": []
         },
         {
-          "name": "TC092 - POST /cards - request without token returns 401",
+          "name": "POST /cards - request without token returns 401",
           "request": {
             "method": "POST",
             "header": [
@@ -1557,7 +1557,7 @@
           "response": []
         },
         {
-          "name": "TC093 - PATCH /cards/:id - successful field update returns 200",
+          "name": "PATCH /cards/:id - successful field update returns 200",
           "request": {
             "method": "PATCH",
             "header": [
@@ -1608,7 +1608,7 @@
           "response": []
         },
         {
-          "name": "TC094 - PATCH /cards/:id - moving card to new list updates list field",
+          "name": "PATCH /cards/:id - moving card to new list updates list field",
           "request": {
             "method": "PATCH",
             "header": [
@@ -1660,7 +1660,7 @@
           "response": []
         },
         {
-          "name": "TC095 - PATCH /cards/:id - moved card reflects in list-filtered GET /cards",
+          "name": "PATCH /cards/:id - moved card reflects in list-filtered GET /cards",
           "request": {
             "method": "GET",
             "header": [
@@ -1702,7 +1702,7 @@
           "response": []
         },
         {
-          "name": "TC096 - PATCH /cards/:id - updating priority persists correctly",
+          "name": "PATCH /cards/:id - updating priority persists correctly",
           "request": {
             "method": "PATCH",
             "header": [
@@ -1754,7 +1754,7 @@
           "response": []
         },
         {
-          "name": "TC097 - PATCH /cards/:id - updating non-existent card returns 404",
+          "name": "PATCH /cards/:id - updating non-existent card returns 404",
           "request": {
             "method": "PATCH",
             "header": [
@@ -1805,7 +1805,7 @@
           "response": []
         },
         {
-          "name": "TC098 - PATCH /cards/:id - invalid priority value on update returns 400",
+          "name": "PATCH /cards/:id - invalid priority value on update returns 400",
           "request": {
             "method": "PATCH",
             "header": [
@@ -1856,7 +1856,7 @@
           "response": []
         },
         {
-          "name": "TC099 - PATCH /cards/:id - partial update leaves other fields unchanged",
+          "name": "PATCH /cards/:id - partial update leaves other fields unchanged",
           "request": {
             "method": "PATCH",
             "header": [
@@ -1908,7 +1908,7 @@
           "response": []
         },
         {
-          "name": "TC100 - PATCH /cards/:id - request without token returns 401",
+          "name": "PATCH /cards/:id - request without token returns 401",
           "request": {
             "method": "PATCH",
             "header": [
@@ -1954,7 +1954,7 @@
           "response": []
         },
         {
-          "name": "TC101 - DELETE /cards/:id - successful delete returns 200",
+          "name": "DELETE /cards/:id - successful delete returns 200",
           "request": {
             "method": "DELETE",
             "header": [
@@ -1991,7 +1991,7 @@
           "response": []
         },
         {
-          "name": "TC102 - DELETE /cards/:id - deleted card no longer appears in GET /cards",
+          "name": "DELETE /cards/:id - deleted card no longer appears in GET /cards",
           "request": {
             "method": "GET",
             "header": [
@@ -2027,7 +2027,7 @@
           "response": []
         },
         {
-          "name": "TC103 - DELETE /cards/:id - deleting non-existent card returns 404",
+          "name": "DELETE /cards/:id - deleting non-existent card returns 404",
           "request": {
             "method": "DELETE",
             "header": [
@@ -2064,7 +2064,7 @@
           "response": []
         },
         {
-          "name": "TC104 - DELETE /cards/:id - deleting already-deleted card returns 404",
+          "name": "DELETE /cards/:id - deleting already-deleted card returns 404",
           "request": {
             "method": "DELETE",
             "header": [
@@ -2101,7 +2101,7 @@
           "response": []
         },
         {
-          "name": "TC105 - DELETE /cards/:id - request without token returns 401",
+          "name": "DELETE /cards/:id - request without token returns 401",
           "request": {
             "method": "DELETE",
             "header": [],
@@ -2132,7 +2132,7 @@
           "response": []
         },
         {
-          "name": "TC106 - DELETE /cards/:id - response confirms success field true",
+          "name": "DELETE /cards/:id - response confirms success field true",
           "request": {
             "method": "DELETE",
             "header": [
@@ -2170,7 +2170,7 @@
           "response": []
         },
         {
-          "name": "TC107 - DELETE /cards/:id - card count in GET /cards decreases by one after delete",
+          "name": "DELETE /cards/:id - card count in GET /cards decreases by one after delete",
           "request": {
             "method": "GET",
             "header": [

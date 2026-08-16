@@ -9,7 +9,7 @@
       "name": "System",
       "item": [
         {
-          "name": "TC001 - GET /health returns 200 OK",
+          "name": "GET /health returns 200 OK",
           "request": {
             "method": "GET",
             "header": [],
@@ -40,7 +40,7 @@
           "response": []
         },
         {
-          "name": "TC002 - GET /health response contains uptime, memoryUsage, timestamp",
+          "name": "GET /health response contains uptime, memoryUsage, timestamp",
           "request": {
             "method": "GET",
             "header": [],
@@ -74,7 +74,7 @@
           "response": []
         },
         {
-          "name": "TC003 - GET /stats returns 200 OK",
+          "name": "GET /stats returns 200 OK",
           "request": {
             "method": "GET",
             "header": [],
@@ -105,7 +105,7 @@
           "response": []
         },
         {
-          "name": "TC004 - GET /stats response contains totalUsers, totalMessages, totalCards, totalChannels as numbers",
+          "name": "GET /stats response contains totalUsers, totalMessages, totalCards, totalChannels as numbers",
           "request": {
             "method": "GET",
             "header": [],
@@ -145,7 +145,7 @@
       "name": "Auth & Users",
       "item": [
         {
-          "name": "TC005 - POST /auth/register - successful registration returns 201",
+          "name": "POST /auth/register - successful registration returns 201",
           "request": {
             "method": "POST",
             "header": [
@@ -192,7 +192,7 @@
           "response": []
         },
         {
-          "name": "TC006 - POST /auth/register - response contains a token",
+          "name": "POST /auth/register - response contains a token",
           "request": {
             "method": "POST",
             "header": [
@@ -239,7 +239,7 @@
           "response": []
         },
         {
-          "name": "TC007 - POST /auth/register - response user object does not contain password field",
+          "name": "POST /auth/register - response user object does not contain password field",
           "request": {
             "method": "POST",
             "header": [
@@ -286,7 +286,7 @@
           "response": []
         },
         {
-          "name": "TC008 - POST /auth/register - missing email returns 400",
+          "name": "POST /auth/register - missing email returns 400",
           "request": {
             "method": "POST",
             "header": [
@@ -332,7 +332,7 @@
           "response": []
         },
         {
-          "name": "TC009 - POST /auth/register - invalid email format returns 400",
+          "name": "POST /auth/register - invalid email format returns 400",
           "request": {
             "method": "POST",
             "header": [
@@ -378,7 +378,7 @@
           "response": []
         },
         {
-          "name": "TC010 - POST /auth/register - duplicate email returns 409",
+          "name": "POST /auth/register - duplicate email returns 409",
           "request": {
             "method": "POST",
             "header": [
@@ -424,7 +424,7 @@
           "response": []
         },
         {
-          "name": "TC011 - POST /auth/login - successful login returns 200",
+          "name": "POST /auth/login - successful login returns 200",
           "request": {
             "method": "POST",
             "header": [
@@ -471,7 +471,7 @@
           "response": []
         },
         {
-          "name": "TC012 - POST /auth/login - response contains a token",
+          "name": "POST /auth/login - response contains a token",
           "request": {
             "method": "POST",
             "header": [
@@ -518,7 +518,7 @@
           "response": []
         },
         {
-          "name": "TC013 - POST /auth/login - wrong password returns 401",
+          "name": "POST /auth/login - wrong password returns 401",
           "request": {
             "method": "POST",
             "header": [
@@ -564,7 +564,7 @@
           "response": []
         },
         {
-          "name": "TC014 - POST /auth/login - non-existent user returns 401",
+          "name": "POST /auth/login - non-existent user returns 401",
           "request": {
             "method": "POST",
             "header": [
@@ -610,7 +610,7 @@
           "response": []
         },
         {
-          "name": "TC015 - POST /auth/login - missing password field returns 400",
+          "name": "POST /auth/login - missing password field returns 400",
           "request": {
             "method": "POST",
             "header": [
@@ -656,7 +656,7 @@
           "response": []
         },
         {
-          "name": "TC016 - POST /auth/logout - successful logout returns 200",
+          "name": "POST /auth/logout - successful logout returns 200",
           "request": {
             "method": "POST",
             "header": [
@@ -694,7 +694,7 @@
           "response": []
         },
         {
-          "name": "TC017 - POST /auth/logout - request without token returns 401",
+          "name": "POST /auth/logout - request without token returns 401",
           "request": {
             "method": "POST",
             "header": [],
@@ -725,7 +725,7 @@
           "response": []
         },
         {
-          "name": "TC018 - POST /auth/refresh - valid token refresh returns 200 with new token",
+          "name": "POST /auth/refresh - valid token refresh returns 200 with new token",
           "request": {
             "method": "POST",
             "header": [
@@ -763,7 +763,7 @@
           "response": []
         },
         {
-          "name": "TC019 - POST /auth/refresh - invalid token returns 401",
+          "name": "POST /auth/refresh - invalid token returns 401",
           "request": {
             "method": "POST",
             "header": [
@@ -800,7 +800,7 @@
           "response": []
         },
         {
-          "name": "TC020 - GET /auth/me - returns 200 with valid token",
+          "name": "GET /auth/me - returns 200 with valid token",
           "request": {
             "method": "GET",
             "header": [
@@ -837,7 +837,7 @@
           "response": []
         },
         {
-          "name": "TC021 - GET /auth/me - response contains correct user id",
+          "name": "GET /auth/me - response contains correct user id",
           "request": {
             "method": "GET",
             "header": [
@@ -875,7 +875,7 @@
           "response": []
         },
         {
-          "name": "TC022 - GET /auth/me - request without token returns 401",
+          "name": "GET /auth/me - request without token returns 401",
           "request": {
             "method": "GET",
             "header": [],
@@ -906,7 +906,7 @@
           "response": []
         },
         {
-          "name": "TC023 - PATCH /auth/me - successful profile update returns 200",
+          "name": "PATCH /auth/me - successful profile update returns 200",
           "request": {
             "method": "PATCH",
             "header": [
@@ -957,7 +957,7 @@
           "response": []
         },
         {
-          "name": "TC024 - PATCH /auth/me - request without token returns 401",
+          "name": "PATCH /auth/me - request without token returns 401",
           "request": {
             "method": "PATCH",
             "header": [
@@ -1003,7 +1003,7 @@
           "response": []
         },
         {
-          "name": "TC025 - PATCH /auth/me/password - successful password change returns 200",
+          "name": "PATCH /auth/me/password - successful password change returns 200",
           "request": {
             "method": "PATCH",
             "header": [
@@ -1055,7 +1055,7 @@
           "response": []
         },
         {
-          "name": "TC026 - PATCH /auth/me/password - wrong current password returns 401",
+          "name": "PATCH /auth/me/password - wrong current password returns 401",
           "request": {
             "method": "PATCH",
             "header": [
@@ -1107,7 +1107,7 @@
           "response": []
         },
         {
-          "name": "TC027 - PATCH /auth/me/password - request without token returns 401",
+          "name": "PATCH /auth/me/password - request without token returns 401",
           "request": {
             "method": "PATCH",
             "header": [
@@ -1154,7 +1154,7 @@
           "response": []
         },
         {
-          "name": "TC028 - GET /auth/users - returns 200 with array of users",
+          "name": "GET /auth/users - returns 200 with array of users",
           "request": {
             "method": "GET",
             "header": [
@@ -1192,7 +1192,7 @@
           "response": []
         },
         {
-          "name": "TC029 - GET /auth/users - search query param filters results",
+          "name": "GET /auth/users - search query param filters results",
           "request": {
             "method": "GET",
             "header": [
@@ -1235,7 +1235,7 @@
           "response": []
         },
         {
-          "name": "TC030 - GET /auth/users - password field not present in any user object",
+          "name": "GET /auth/users - password field not present in any user object",
           "request": {
             "method": "GET",
             "header": [
@@ -1274,7 +1274,7 @@
           "response": []
         },
         {
-          "name": "TC031 - GET /auth/users/:id - returns 200 for existing user id",
+          "name": "GET /auth/users/:id - returns 200 for existing user id",
           "request": {
             "method": "GET",
             "header": [
@@ -1312,7 +1312,7 @@
           "response": []
         },
         {
-          "name": "TC032 - GET /auth/users/:id - returns 404 for non-existent user id",
+          "name": "GET /auth/users/:id - returns 404 for non-existent user id",
           "request": {
             "method": "GET",
             "header": [
@@ -1350,7 +1350,7 @@
           "response": []
         },
         {
-          "name": "TC033 - GET /auth/users/:id - response does not contain password field",
+          "name": "GET /auth/users/:id - response does not contain password field",
           "request": {
             "method": "GET",
             "header": [
@@ -1394,7 +1394,7 @@
       "name": "Connections",
       "item": [
         {
-          "name": "TC034 - GET /connections - returns 200 with accepted/incoming/outgoing arrays",
+          "name": "GET /connections - returns 200 with accepted/incoming/outgoing arrays",
           "request": {
             "method": "GET",
             "header": [
@@ -1434,7 +1434,7 @@
           "response": []
         },
         {
-          "name": "TC035 - GET /connections - request without token returns 401",
+          "name": "GET /connections - request without token returns 401",
           "request": {
             "method": "GET",
             "header": [],
@@ -1464,7 +1464,7 @@
           "response": []
         },
         {
-          "name": "TC036 - POST /connections/request - successful connection request returns 201",
+          "name": "POST /connections/request - successful connection request returns 201",
           "request": {
             "method": "POST",
             "header": [
@@ -1515,7 +1515,7 @@
           "response": []
         },
         {
-          "name": "TC037 - POST /connections/request - duplicate request returns 409",
+          "name": "POST /connections/request - duplicate request returns 409",
           "request": {
             "method": "POST",
             "header": [
@@ -1566,7 +1566,7 @@
           "response": []
         },
         {
-          "name": "TC038 - POST /connections/request - missing targetUserId returns 400",
+          "name": "POST /connections/request - missing targetUserId returns 400",
           "request": {
             "method": "POST",
             "header": [
@@ -1617,7 +1617,7 @@
           "response": []
         },
         {
-          "name": "TC039 - POST /connections/request - request without token returns 401",
+          "name": "POST /connections/request - request without token returns 401",
           "request": {
             "method": "POST",
             "header": [
@@ -1663,7 +1663,7 @@
           "response": []
         },
         {
-          "name": "TC040 - PATCH /connections/:id - accepting a request returns 200 with status accepted",
+          "name": "PATCH /connections/:id - accepting a request returns 200 with status accepted",
           "request": {
             "method": "PATCH",
             "header": [
@@ -1715,7 +1715,7 @@
           "response": []
         },
         {
-          "name": "TC041 - PATCH /connections/:id - declining a request returns 200 with status declined",
+          "name": "PATCH /connections/:id - declining a request returns 200 with status declined",
           "request": {
             "method": "PATCH",
             "header": [
@@ -1767,7 +1767,7 @@
           "response": []
         },
         {
-          "name": "TC042 - PATCH /connections/:id - non-receiving user gets 403 on accept attempt",
+          "name": "PATCH /connections/:id - non-receiving user gets 403 on accept attempt",
           "request": {
             "method": "PATCH",
             "header": [
@@ -1818,7 +1818,7 @@
           "response": []
         },
         {
-          "name": "TC043 - DELETE /connections/:id - successful delete returns 200",
+          "name": "DELETE /connections/:id - successful delete returns 200",
           "request": {
             "method": "DELETE",
             "header": [
@@ -1855,7 +1855,7 @@
           "response": []
         },
         {
-          "name": "TC044 - DELETE /connections/:id - request without token returns 401",
+          "name": "DELETE /connections/:id - request without token returns 401",
           "request": {
             "method": "DELETE",
             "header": [],
@@ -1891,7 +1891,7 @@
       "name": "Channels",
       "item": [
         {
-          "name": "TC045 - GET /channels - returns 200 with array of channels",
+          "name": "GET /channels - returns 200 with array of channels",
           "request": {
             "method": "GET",
             "header": [],
@@ -1922,7 +1922,7 @@
           "response": []
         },
         {
-          "name": "TC046 - GET /channels - each channel has id and name fields",
+          "name": "GET /channels - each channel has id and name fields",
           "request": {
             "method": "GET",
             "header": [],
@@ -1954,7 +1954,7 @@
           "response": []
         },
         {
-          "name": "TC047 - POST /channels - successful channel creation returns 201",
+          "name": "POST /channels - successful channel creation returns 201",
           "request": {
             "method": "POST",
             "header": [
@@ -2004,7 +2004,7 @@
           "response": []
         },
         {
-          "name": "TC048 - POST /channels - duplicate channel name returns 409",
+          "name": "POST /channels - duplicate channel name returns 409",
           "request": {
             "method": "POST",
             "header": [
@@ -2054,7 +2054,7 @@
           "response": []
         },
         {
-          "name": "TC049 - POST /channels - missing name field returns 400",
+          "name": "POST /channels - missing name field returns 400",
           "request": {
             "method": "POST",
             "header": [
@@ -2104,7 +2104,7 @@
           "response": []
         },
         {
-          "name": "TC050 - PATCH /channels/:id - successful channel update returns 200",
+          "name": "PATCH /channels/:id - successful channel update returns 200",
           "request": {
             "method": "PATCH",
             "header": [
@@ -2155,7 +2155,7 @@
           "response": []
         },
         {
-          "name": "TC051 - PATCH /channels/:id - update on non-existent channel returns 404",
+          "name": "PATCH /channels/:id - update on non-existent channel returns 404",
           "request": {
             "method": "PATCH",
             "header": [
@@ -2206,7 +2206,7 @@
           "response": []
         },
         {
-          "name": "TC052 - DELETE /channels/:id - successful delete returns 200",
+          "name": "DELETE /channels/:id - successful delete returns 200",
           "request": {
             "method": "DELETE",
             "header": [
@@ -2243,7 +2243,7 @@
           "response": []
         },
         {
-          "name": "TC053 - DELETE /channels/:id - request without token returns 401",
+          "name": "DELETE /channels/:id - request without token returns 401",
           "request": {
             "method": "DELETE",
             "header": [],
@@ -2274,7 +2274,7 @@
           "response": []
         },
         {
-          "name": "TC054 - GET /channels/unread - returns 200 with array of unread statuses",
+          "name": "GET /channels/unread - returns 200 with array of unread statuses",
           "request": {
             "method": "GET",
             "header": [
@@ -2312,7 +2312,7 @@
           "response": []
         },
         {
-          "name": "TC055 - GET /channels/unread - request without token returns 401",
+          "name": "GET /channels/unread - request without token returns 401",
           "request": {
             "method": "GET",
             "header": [],
@@ -2343,7 +2343,7 @@
           "response": []
         },
         {
-          "name": "TC056 - POST /channels/:id/read - marking channel as read returns 200",
+          "name": "POST /channels/:id/read - marking channel as read returns 200",
           "request": {
             "method": "POST",
             "header": [
@@ -2381,7 +2381,7 @@
           "response": []
         },
         {
-          "name": "TC057 - POST /channels/:id/read - request without token returns 401",
+          "name": "POST /channels/:id/read - request without token returns 401",
           "request": {
             "method": "POST",
             "header": [],
