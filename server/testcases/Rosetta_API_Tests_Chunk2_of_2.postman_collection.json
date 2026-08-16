@@ -11,11 +11,12 @@
         "method": "POST",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/dev/reset",
+          "raw": "{{baseUrl}}/api/dev/reset",
           "host": [
             "{{baseUrl}}"
           ],
           "path": [
+            "api",
             "dev",
             "reset"
           ]
