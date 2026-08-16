@@ -59,14 +59,14 @@ jobs:
         run: |
           cd server
           newman run testcases/Rosetta_API_Tests_Chunk1_of_2.postman_collection.json \
-            --env-var baseUrl=http://localhost:3000/api \
+            --env-var baseUrl=http://localhost:3000 \
             --env-var token=test-token
 
       - name: Run Chunk 2 (50 tests)
         run: |
           cd server
           newman run testcases/Rosetta_API_Tests_Chunk2_of_2.postman_collection.json \
-            --env-var baseUrl=http://localhost:3000/api \
+            --env-var baseUrl=http://localhost:3000 \
             --env-var token=test-token
 
   # ==============================================================
