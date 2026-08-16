@@ -6,6 +6,24 @@
   },
   "item": [
     {
+      "name": "DB Reset for Tests",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/dev/reset",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "dev",
+            "reset"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "Messages",
       "item": [
         {

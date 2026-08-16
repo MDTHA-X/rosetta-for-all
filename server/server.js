@@ -236,10 +236,24 @@ api.get('/stats', (req, res) => {
   });
 });
 
+import Card from './models/Card.js';
+
 // MVC Routes
 api.use('/cards', authenticateToken(true), cardRoutes);
 
-// ----------------------------------------------------------------------------
+// Testing / DB Reset Endpoint
+api.post('/dev/reset', async (req, res) => {
+  db = getInitialData();
+  saveData(db);
+  try {
+    await Card.deleteMany({});
+    await Card.insertMany(db.cards);
+  } catch(e) {
+    console.error('Reset error:', e);
+  }
+  res.status(200).json({ message: 'Database reset to initial state' });
+});
+
 // 2. AUTH & USERS ENDPOINTS
 // ----------------------------------------------------------------------------
 api.post('/auth/register', (req, res) => {
