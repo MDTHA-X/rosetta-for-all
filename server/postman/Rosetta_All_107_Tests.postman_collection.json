@@ -4616,5 +4616,25 @@
         }
       ]
     }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// 1. Generate a unique ID for this specific test run",
+          "if (!pm.collectionVariables.get('testRunId')) {",
+          "    pm.collectionVariables.set('testRunId', pm.variables.replaceIn('{{$guid}}'));",
+          "}",
+          "",
+          "// 2. Capture the exact time this specific request started",
+          "pm.variables.set('reqTimestamp', new Date().toISOString());",
+          "",
+          "// 3. Log the outgoing request name to the Postman Console for debugging",
+          "console.log(`[${pm.variables.get('testRunId')}] 🚀 Starting Request: ${pm.info.requestName} at ${pm.variables.get('reqTimestamp')}`);"
+        ]
+      }
+    }
   ]
 }

@@ -26,7 +26,16 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": { "raw": "{{baseUrl}}/api/health", "host": ["{{baseUrl}}"], "path": ["api", "health"] }
+        "url": {
+          "raw": "{{baseUrl}}/api/health",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "health"
+          ]
+        }
       }
     },
     {
@@ -49,7 +58,16 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": { "raw": "{{baseUrl}}/api/stats", "host": ["{{baseUrl}}"], "path": ["api", "stats"] }
+        "url": {
+          "raw": "{{baseUrl}}/api/stats",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "stats"
+          ]
+        }
       }
     },
     {
@@ -72,7 +90,16 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": { "raw": "{{baseUrl}}/api/channels", "host": ["{{baseUrl}}"], "path": ["api", "channels"] }
+        "url": {
+          "raw": "{{baseUrl}}/api/channels",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "channels"
+          ]
+        }
       }
     },
     {
@@ -95,7 +122,17 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": { "raw": "{{baseUrl}}/api/channels/c-1", "host": ["{{baseUrl}}"], "path": ["api", "channels", "c-1"] }
+        "url": {
+          "raw": "{{baseUrl}}/api/channels/c-1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "channels",
+            "c-1"
+          ]
+        }
       }
     },
     {
@@ -117,12 +154,26 @@
       ],
       "request": {
         "method": "POST",
-        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
         "body": {
           "mode": "raw",
           "raw": "{\n  \"name\": \"QA-Automation\",\n  \"description\": \"Automated quality engineering and testing discussions\",\n  \"category\": \"Text Channels\"\n}"
         },
-        "url": { "raw": "{{baseUrl}}/api/channels", "host": ["{{baseUrl}}"], "path": ["api", "channels"] }
+        "url": {
+          "raw": "{{baseUrl}}/api/channels",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "channels"
+          ]
+        }
       }
     },
     {
@@ -144,12 +195,27 @@
       ],
       "request": {
         "method": "PATCH",
-        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
         "body": {
           "mode": "raw",
           "raw": "{\n  \"description\": \"Updated description for QA Automation channel\"\n}"
         },
-        "url": { "raw": "{{baseUrl}}/api/channels/{{createdChannelId}}", "host": ["{{baseUrl}}"], "path": ["api", "channels", "{{createdChannelId}}"] }
+        "url": {
+          "raw": "{{baseUrl}}/api/channels/{{createdChannelId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "channels",
+            "{{createdChannelId}}"
+          ]
+        }
       }
     },
     {
@@ -172,7 +238,16 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": { "raw": "{{baseUrl}}/api/members", "host": ["{{baseUrl}}"], "path": ["api", "members"] }
+        "url": {
+          "raw": "{{baseUrl}}/api/members",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "members"
+          ]
+        }
       }
     },
     {
@@ -195,7 +270,17 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": { "raw": "{{baseUrl}}/api/members/m-1", "host": ["{{baseUrl}}"], "path": ["api", "members", "m-1"] }
+        "url": {
+          "raw": "{{baseUrl}}/api/members/m-1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "members",
+            "m-1"
+          ]
+        }
       }
     },
     {
@@ -217,12 +302,26 @@
       ],
       "request": {
         "method": "POST",
-        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
         "body": {
           "mode": "raw",
           "raw": "{\n  \"name\": \"David Kim\",\n  \"username\": \"davidk\",\n  \"role\": \"QA Engineer\",\n  \"status\": \"online\",\n  \"customStatus\": \"Testing Postman\"\n}"
         },
-        "url": { "raw": "{{baseUrl}}/api/members", "host": ["{{baseUrl}}"], "path": ["api", "members"] }
+        "url": {
+          "raw": "{{baseUrl}}/api/members",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "members"
+          ]
+        }
       }
     },
     {
@@ -244,12 +343,27 @@
       ],
       "request": {
         "method": "PATCH",
-        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
         "body": {
           "mode": "raw",
           "raw": "{\n  \"status\": \"dnd\",\n  \"customStatus\": \"Running Newman Tests in CI\"\n}"
         },
-        "url": { "raw": "{{baseUrl}}/api/members/{{createdMemberId}}", "host": ["{{baseUrl}}"], "path": ["api", "members", "{{createdMemberId}}"] }
+        "url": {
+          "raw": "{{baseUrl}}/api/members/{{createdMemberId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "members",
+            "{{createdMemberId}}"
+          ]
+        }
       }
     },
     {
@@ -272,7 +386,22 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": { "raw": "{{baseUrl}}/api/messages?channelId=c-1", "host": ["{{baseUrl}}"], "path": ["api", "messages"], "query": [{ "key": "channelId", "value": "c-1" }] }
+        "url": {
+          "raw": "{{baseUrl}}/api/messages?channelId=c-1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "messages"
+          ],
+          "query": [
+            {
+              "key": "channelId",
+              "value": "c-1"
+            }
+          ]
+        }
       }
     },
     {
@@ -294,12 +423,26 @@
       ],
       "request": {
         "method": "POST",
-        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
         "body": {
           "mode": "raw",
           "raw": "{\n  \"channelId\": \"c-1\",\n  \"senderId\": \"m-1\",\n  \"text\": \"Automated QA message via Postman test script\"\n}"
         },
-        "url": { "raw": "{{baseUrl}}/api/messages", "host": ["{{baseUrl}}"], "path": ["api", "messages"] }
+        "url": {
+          "raw": "{{baseUrl}}/api/messages",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "messages"
+          ]
+        }
       }
     },
     {
@@ -322,7 +465,17 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": { "raw": "{{baseUrl}}/api/messages/{{createdMessageId}}", "host": ["{{baseUrl}}"], "path": ["api", "messages", "{{createdMessageId}}"] }
+        "url": {
+          "raw": "{{baseUrl}}/api/messages/{{createdMessageId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "messages",
+            "{{createdMessageId}}"
+          ]
+        }
       }
     },
     {
@@ -345,7 +498,17 @@
       "request": {
         "method": "DELETE",
         "header": [],
-        "url": { "raw": "{{baseUrl}}/api/messages/{{createdMessageId}}", "host": ["{{baseUrl}}"], "path": ["api", "messages", "{{createdMessageId}}"] }
+        "url": {
+          "raw": "{{baseUrl}}/api/messages/{{createdMessageId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "messages",
+            "{{createdMessageId}}"
+          ]
+        }
       }
     },
     {
@@ -368,7 +531,16 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": { "raw": "{{baseUrl}}/api/cards", "host": ["{{baseUrl}}"], "path": ["api", "cards"] }
+        "url": {
+          "raw": "{{baseUrl}}/api/cards",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "cards"
+          ]
+        }
       }
     },
     {
@@ -390,12 +562,26 @@
       ],
       "request": {
         "method": "POST",
-        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
         "body": {
           "mode": "raw",
           "raw": "{\n  \"title\": \"Verify CI/CD Newman Test Execution\",\n  \"description\": \"Run Newman CLI on GitHub Actions runner with 100 assertions and HTML Extra report\",\n  \"list\": \"todo\",\n  \"priority\": \"urgent\",\n  \"assignedTo\": \"m-1\"\n}"
         },
-        "url": { "raw": "{{baseUrl}}/api/cards", "host": ["{{baseUrl}}"], "path": ["api", "cards"] }
+        "url": {
+          "raw": "{{baseUrl}}/api/cards",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "cards"
+          ]
+        }
       }
     },
     {
@@ -417,12 +603,27 @@
       ],
       "request": {
         "method": "PATCH",
-        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
         "body": {
           "mode": "raw",
           "raw": "{\n  \"list\": \"in-progress\"\n}"
         },
-        "url": { "raw": "{{baseUrl}}/api/cards/{{createdCardId}}", "host": ["{{baseUrl}}"], "path": ["api", "cards", "{{createdCardId}}"] }
+        "url": {
+          "raw": "{{baseUrl}}/api/cards/{{createdCardId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "cards",
+            "{{createdCardId}}"
+          ]
+        }
       }
     },
     {
@@ -445,7 +646,22 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": { "raw": "{{baseUrl}}/api/cards?list=in-progress", "host": ["{{baseUrl}}"], "path": ["api", "cards"], "query": [{ "key": "list", "value": "in-progress" }] }
+        "url": {
+          "raw": "{{baseUrl}}/api/cards?list=in-progress",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "cards"
+          ],
+          "query": [
+            {
+              "key": "list",
+              "value": "in-progress"
+            }
+          ]
+        }
       }
     },
     {
@@ -468,7 +684,17 @@
       "request": {
         "method": "DELETE",
         "header": [],
-        "url": { "raw": "{{baseUrl}}/api/cards/{{createdCardId}}", "host": ["{{baseUrl}}"], "path": ["api", "cards", "{{createdCardId}}"] }
+        "url": {
+          "raw": "{{baseUrl}}/api/cards/{{createdCardId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "cards",
+            "{{createdCardId}}"
+          ]
+        }
       }
     },
     {
@@ -491,7 +717,37 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": { "raw": "{{baseUrl}}/api/channels/c-non-existent-999", "host": ["{{baseUrl}}"], "path": ["api", "channels", "c-non-existent-999"] }
+        "url": {
+          "raw": "{{baseUrl}}/api/channels/c-non-existent-999",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "channels",
+            "c-non-existent-999"
+          ]
+        }
+      }
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// 1. Generate a unique ID for this specific test run",
+          "if (!pm.collectionVariables.get('testRunId')) {",
+          "    pm.collectionVariables.set('testRunId', pm.variables.replaceIn('{{$guid}}'));",
+          "}",
+          "",
+          "// 2. Capture the exact time this specific request started",
+          "pm.variables.set('reqTimestamp', new Date().toISOString());",
+          "",
+          "// 3. Log the outgoing request name to the Postman Console for debugging",
+          "console.log(`[${pm.variables.get('testRunId')}] 🚀 Starting Request: ${pm.info.requestName} at ${pm.variables.get('reqTimestamp')}`);"
+        ]
       }
     }
   ]
