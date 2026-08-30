@@ -2519,10 +2519,12 @@
       "script": {
         "type": "text/javascript",
         "exec": [
-          "if (!pm.variables.get(\"userId\") || pm.variables.get(\"userId\") === \"\") { pm.variables.set(\"userId\", \"u-2\"); }",
-          "if (!pm.variables.get(\"connectionId\") || pm.variables.get(\"connectionId\") === \"\") { pm.variables.set(\"connectionId\", \"conn-1\"); }",
-          "if (!pm.variables.get(\"channelId\") || pm.variables.get(\"channelId\") === \"\") { pm.variables.set(\"channelId\", \"c-1\"); }",
-          "if (!pm.variables.get(\"token\") || pm.variables.get(\"token\") === \"\") { pm.variables.set(\"token\", \"test-token\"); }"
+          "// Pre-request script - automatically runs before EVERY API call",
+          "console.log('[PRE-REQUEST] Sending request: ' + pm.info.requestName);",
+          "pm.variables.set('preRequestTimestamp', new Date().toISOString());",
+          "if (pm.request.body && pm.request.body.mode === 'raw') {",
+          "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+          "}"
         ]
       }
     }

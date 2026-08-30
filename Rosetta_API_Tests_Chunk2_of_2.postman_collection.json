@@ -2298,13 +2298,12 @@
       "script": {
         "type": "text/javascript",
         "exec": [
-          "if (!pm.variables.get(\"cardId\") || pm.variables.get(\"cardId\") === \"\") { pm.variables.set(\"cardId\", \"card-1\"); }",
-          "if (!pm.variables.get(\"tempCardId\") || pm.variables.get(\"tempCardId\") === \"\") { pm.variables.set(\"tempCardId\", \"card-2\"); }",
-          "if (!pm.variables.get(\"channelId\") || pm.variables.get(\"channelId\") === \"\") { pm.variables.set(\"channelId\", \"c-1\"); }",
-          "if (!pm.variables.get(\"messageId\") || pm.variables.get(\"messageId\") === \"\") { pm.variables.set(\"messageId\", \"msg-1\"); }",
-          "if (!pm.variables.get(\"otherUserMessageId\") || pm.variables.get(\"otherUserMessageId\") === \"\") { pm.variables.set(\"otherUserMessageId\", \"msg-2\"); }",
-          "if (!pm.variables.get(\"userId\") || pm.variables.get(\"userId\") === \"\") { pm.variables.set(\"userId\", \"u-2\"); }",
-          "if (!pm.variables.get(\"token\") || pm.variables.get(\"token\") === \"\") { pm.variables.set(\"token\", \"test-token\"); }"
+          "// Pre-request script - automatically runs before EVERY API call",
+          "console.log('[PRE-REQUEST] Sending request: ' + pm.info.requestName);",
+          "pm.variables.set('preRequestTimestamp', new Date().toISOString());",
+          "if (pm.request.body && pm.request.body.mode === 'raw') {",
+          "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+          "}"
         ]
       }
     }

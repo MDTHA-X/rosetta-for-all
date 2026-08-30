@@ -4616,5 +4616,21 @@
         }
       ]
     }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Pre-request script - automatically runs before EVERY API call",
+          "console.log('[PRE-REQUEST] Sending request: ' + pm.info.requestName);",
+          "pm.variables.set('preRequestTimestamp', new Date().toISOString());",
+          "if (pm.request.body && pm.request.body.mode === 'raw') {",
+          "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+          "}"
+        ]
+      }
+    }
   ]
 }
