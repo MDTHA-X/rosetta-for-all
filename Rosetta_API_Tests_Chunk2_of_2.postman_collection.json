@@ -38,6 +38,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -75,6 +89,20 @@
             }
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -119,6 +147,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -156,6 +198,20 @@
             }
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -208,6 +264,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -258,6 +328,20 @@
             }
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -310,6 +394,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -355,6 +453,20 @@
             }
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -407,6 +519,20 @@
             }
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -461,6 +587,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -508,6 +648,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -545,6 +699,20 @@
             }
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -584,6 +752,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -615,6 +797,20 @@
             }
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -659,6 +855,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -700,6 +910,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -733,6 +957,20 @@
             }
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -786,6 +1024,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -838,6 +1090,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -885,6 +1151,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -926,6 +1206,20 @@
             }
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -971,6 +1265,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -1014,6 +1322,20 @@
             }
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -1059,6 +1381,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -1102,6 +1438,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -1139,6 +1489,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -1172,6 +1536,20 @@
             }
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -1224,6 +1602,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -1274,6 +1666,20 @@
             }
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -1326,6 +1732,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -1376,6 +1796,20 @@
             }
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -1428,6 +1862,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -1478,6 +1926,20 @@
             }
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -1531,6 +1993,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -1577,6 +2053,20 @@
             }
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -1630,6 +2120,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -1682,6 +2186,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -1725,6 +2243,20 @@
             }
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -1777,6 +2309,20 @@
             }
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -1831,6 +2377,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -1882,6 +2442,20 @@
             }
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -1935,6 +2509,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -1983,6 +2571,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -2021,6 +2623,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -2057,6 +2673,20 @@
             }
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -2096,6 +2726,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -2134,6 +2778,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -2165,6 +2823,20 @@
             }
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
@@ -2204,6 +2876,20 @@
           },
           "event": [
             {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
+            {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
@@ -2241,6 +2927,20 @@
             }
           },
           "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script - executes before this test case request",
+                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
+                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "if (pm.request.body && pm.request.body.mode === 'raw') {",
+                  "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
+                  "}"
+                ]
+              }
+            },
             {
               "listen": "test",
               "script": {
