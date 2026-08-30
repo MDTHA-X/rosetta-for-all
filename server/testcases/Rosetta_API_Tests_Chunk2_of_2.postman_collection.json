@@ -29,9 +29,9 @@
           "script": {
             "type": "text/javascript",
             "exec": [
-              "// Pre-request script - executes before this test case request",
-              "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-              "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+              "// Pre-request script - runs before this test case executes",
+              "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+              "pm.variables.set('testStartTime', new Date().toISOString());",
               "if (pm.request.body && pm.request.body.mode === 'raw') {",
               "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
               "}"
@@ -77,9 +77,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -129,9 +129,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -186,9 +186,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -238,9 +238,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -303,9 +303,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -368,9 +368,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -433,9 +433,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -493,9 +493,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -559,9 +559,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -626,9 +626,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -687,9 +687,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -739,9 +739,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -791,9 +791,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -837,9 +837,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -894,9 +894,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -949,9 +949,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -997,9 +997,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -1063,9 +1063,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -1129,9 +1129,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -1190,9 +1190,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -1246,9 +1246,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -1304,9 +1304,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -1362,9 +1362,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -1420,9 +1420,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -1477,9 +1477,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -1528,9 +1528,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -1576,9 +1576,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -1641,9 +1641,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -1706,9 +1706,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -1771,9 +1771,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -1836,9 +1836,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -1901,9 +1901,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -1966,9 +1966,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -2032,9 +2032,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -2093,9 +2093,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -2159,9 +2159,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -2225,9 +2225,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -2283,9 +2283,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -2349,9 +2349,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -2416,9 +2416,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -2482,9 +2482,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -2548,9 +2548,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -2610,9 +2610,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -2662,9 +2662,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -2713,9 +2713,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -2765,9 +2765,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -2817,9 +2817,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -2863,9 +2863,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -2915,9 +2915,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -2967,9 +2967,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "// Pre-request script - executes before this test case request",
-                  "console.log('[PRE-REQUEST TEST CASE] Executing: ' + pm.info.requestName);",
-                  "pm.variables.set('testCaseStartTime', new Date().toISOString());",
+                  "// Pre-request script - runs before this test case executes",
+                  "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+                  "pm.variables.set('testStartTime', new Date().toISOString());",
                   "if (pm.request.body && pm.request.body.mode === 'raw') {",
                   "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
                   "}"
@@ -3033,9 +3033,9 @@
       "script": {
         "type": "text/javascript",
         "exec": [
-          "// Pre-request script - automatically runs before EVERY API call",
-          "console.log('[PRE-REQUEST] Sending request: ' + pm.info.requestName);",
-          "pm.variables.set('preRequestTimestamp', new Date().toISOString());",
+          "// Pre-request script - runs before this test case executes",
+          "console.log('[PRE-REQUEST TEST CASE] Sending request: ' + pm.info.requestName);",
+          "pm.variables.set('testStartTime', new Date().toISOString());",
           "if (pm.request.body && pm.request.body.mode === 'raw') {",
           "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
           "}"
