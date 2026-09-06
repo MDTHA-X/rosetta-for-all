@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "test": "newman run postman/rosetta_collection.json -e postman/rosetta_environment.json -r cli,htmlextra --reporter-htmlextra-export reports/newman_report.html",
-    "test:lab5": "newman run postman/Rosetta_Lab05_Auth_RBAC.postman_collection.json -e postman/rosetta_environment.json"
-
+    "test:lab5": "newman run postman/Rosetta_Lab05_Auth_RBAC.postman_collection.json -e postman/rosetta_environment.json",
+    "test:auth": "node test_auth_rbac.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

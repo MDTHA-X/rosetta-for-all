@@ -14,7 +14,7 @@ permissions:
 jobs:
   
   postman-quality-gate:
-    name: 🧪 Automated Quality Gate (107 Tests)
+    name: 🧪 Automated Quality Gate (127 Tests - Quality + Lab 05 Auth/RBAC)
     runs-on: ubuntu-latest
     
     
@@ -66,6 +66,17 @@ jobs:
           newman run testcases/Rosetta_API_Tests_Chunk2_of_2.postman_collection.json \
             --env-var baseUrl=http://localhost:3000 \
             --env-var token=test-token
+
+      - name: Run Lab 05 Auth & RBAC Tests (20 tests via Newman)
+        run: |
+          cd server
+          newman run testcases/Rosetta_Lab05_Auth_RBAC.postman_collection.json \
+            --env-var baseUrl=http://localhost:3000
+
+      - name: Run Lab 05 Auth & RBAC Automated Test Suite
+        run: |
+          cd server
+          node test_auth_rbac.js http://localhost:3000
 
   
             
