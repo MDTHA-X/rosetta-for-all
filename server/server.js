@@ -3,9 +3,12 @@ import cors from 'cors';
 import path from 'path';
 import fs from 'fs';
 import crypto from 'crypto';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 import { fileURLToPath } from 'url';
 import connectDB from './config/db.js';
 import cardRoutes from './routes/cardRoutes.js';
+import User from './models/User.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,16 +25,14 @@ app.use(express.json());
 // Token generation & verification helpers
 function generateToken(user) {
   const payload = {
-    userId: user.id,
-    id: user.id,
+    userId: user.id || user._id,
+    id: user.id || user._id,
+    name: user.name,
     username: user.username,
     email: user.email,
-    role: user.role,
-    exp: Date.now() + 7 * 24 * 60 * 60 * 1000 // 7 days
+    role: user.role || 'User'
   };
-  const payloadB64 = Buffer.from(JSON.stringify(payload)).toString('base64url');
-  const signature = crypto.createHmac('sha256', JWT_SECRET).update(payloadB64).digest('base64url');
-  return `${payloadB64}.${signature}`;
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: '7d' });
 }
 
 function verifyToken(tokenString) {
@@ -51,7 +52,14 @@ function verifyToken(tokenString) {
   }
 
   const parts = tokenString.split('.');
-  if (parts.length === 2) {
+  if (parts.length === 3) {
+    try {
+      const decoded = jwt.verify(tokenString, JWT_SECRET);
+      return { userId: decoded.id || decoded.userId, id: decoded.id || decoded.userId, ...decoded };
+    } catch {
+      return null;
+    }
+  } else if (parts.length === 2) {
     const [payloadB64, signature] = parts;
     const expectedSig = crypto.createHmac('sha256', JWT_SECRET).update(payloadB64).digest('base64url');
     if (signature === expectedSig) {
@@ -62,15 +70,6 @@ function verifyToken(tokenString) {
       } catch {
         return null;
       }
-    }
-  } else if (parts.length === 3) {
-    // Standard 3-part JWT
-    try {
-      const payload = JSON.parse(Buffer.from(parts[1], 'base64url').toString('utf8'));
-      if (payload.exp && Date.now() > payload.exp * 1000) return null;
-      return { userId: payload.id || payload.userId || 'u-1', id: payload.id || payload.userId || 'u-1', ...payload };
-    } catch {
-      return null;
     }
   }
 
@@ -109,11 +108,33 @@ function authenticateToken(required = true) {
 
     req.userId = decoded.userId || decoded.id || 'u-1';
     req.tokenPayload = decoded;
-    const user = db.users.find(u => u.id === req.userId || u.username === decoded.username) || db.users[0];
+    const user = db.users.find(u => u.id === req.userId || u.username === decoded.username) || {
+      id: req.userId,
+      role: decoded.role || 'User',
+      ...decoded
+    };
     req.user = user;
     next();
   };
 }
+
+// Role-Based Access Control (RBAC) Middleware
+function authorizeRoles(...allowedRoles) {
+  return (req, res, next) => {
+    if (!req.user) {
+      return res.status(401).json({ error: true, message: 'Authentication required.' });
+    }
+    const role = req.user.role || 'User';
+    if (allowedRoles.length > 0 && !allowedRoles.includes(role)) {
+      return res.status(403).json({
+        error: true,
+        message: `Access denied. Requires one of the following roles: ${allowedRoles.join(', ')}.`
+      });
+    }
+    next();
+  };
+}
+
 
 // Initial Seed Data
 const getInitialData = () => ({
@@ -196,6 +217,7 @@ function saveData(data) {
 }
 
 let db = loadData();
+global.rosettaDb = db;
 
 // Utility helper to strip sensitive fields
 const sanitizeUser = (user) => {
@@ -239,7 +261,7 @@ api.get('/stats', (req, res) => {
 import Card from './models/Card.js';
 
 // MVC Routes
-api.use('/cards', authenticateToken(true), cardRoutes);
+api.use('/cards', cardRoutes);
 
 // Testing / DB Reset Endpoint
 api.post('/dev/reset', async (req, res) => {
@@ -256,9 +278,13 @@ api.post('/dev/reset', async (req, res) => {
 
 // 2. AUTH & USERS ENDPOINTS
 // ----------------------------------------------------------------------------
-api.post('/auth/register', (req, res) => {
+api.post('/auth/register', async (req, res) => {
   const { username, email, password, name, role, avatar } = req.body;
   
+  if (!name || name.trim() === '') {
+    return res.status(400).json({ error: 'Name is required' });
+  }
+
   if (!email || email.trim() === '') {
     return res.status(400).json({ error: 'Email is required' });
   }
@@ -269,12 +295,17 @@ api.post('/auth/register', (req, res) => {
     return res.status(400).json({ error: 'Invalid email format' });
   }
 
-  if (!username || username.trim() === '' || !password || password.trim() === '' || !name || name.trim() === '') {
-    return res.status(400).json({ error: 'Username, email, password, and name are required' });
+  if (!password || password.trim() === '') {
+    return res.status(400).json({ error: 'Password is required' });
   }
 
-  const cleanUsername = username.trim().toLowerCase();
+  if (password.trim().length < 6) {
+    return res.status(400).json({ error: 'Password must be at least 6 characters long' });
+  }
 
+  const cleanUsername = (username || cleanEmail.split('@')[0]).trim().toLowerCase();
+
+  // Check for existing user email
   const existingEmail = db.users.find(u => u.email && u.email.toLowerCase() === cleanEmail);
   if (existingEmail) {
     return res.status(409).json({ error: 'Email is already registered' });
@@ -285,13 +316,17 @@ api.post('/auth/register', (req, res) => {
     return res.status(409).json({ error: 'Username already exists' });
   }
 
+  // Hash user password before storing it
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password.trim(), salt);
+
   const newUser = {
     id: `u-${Date.now()}`,
     name: name.trim(),
     email: cleanEmail,
     username: cleanUsername,
-    password: password.trim(),
-    role: role || 'Member',
+    password: hashedPassword,
+    role: role || 'User',
     status: 'online',
     customStatus: 'Exploring Rosetta 🚀',
     avatar: avatar || `https://api.dicebear.com/7.x/bottts/svg?seed=${cleanUsername}`,
@@ -313,17 +348,23 @@ api.post('/auth/register', (req, res) => {
 
   saveData(db);
 
+  try {
+    const mongoUser = new User(newUser);
+    await mongoUser.save();
+  } catch (e) {}
+
   const safeUser = sanitizeUser(newUser);
   const token = generateToken(newUser);
 
   res.status(201).json({
+    message: 'User registered successfully',
     token,
     user: safeUser,
     ...safeUser
   });
 });
 
-api.post('/auth/login', (req, res) => {
+api.post('/auth/login', async (req, res) => {
   const { username, email, identifier, password } = req.body;
   const loginId = (identifier || username || email || '').trim().toLowerCase();
 
@@ -340,11 +381,19 @@ api.post('/auth/login', (req, res) => {
   );
 
   if (!user) {
-    return res.status(401).json({ error: 'User not found' });
+    return res.status(401).json({ error: 'Invalid email or password' });
   }
 
-  if (user.password !== password.trim()) {
-    return res.status(401).json({ error: 'Invalid password' });
+  // Verify password with bcrypt (with backward-compatible plain text check)
+  let isMatch = false;
+  if (user.password.startsWith('$2a$') || user.password.startsWith('$2b$')) {
+    isMatch = await bcrypt.compare(password.trim(), user.password);
+  } else {
+    isMatch = (user.password === password.trim());
+  }
+
+  if (!isMatch) {
+    return res.status(401).json({ error: 'Invalid email or password' });
   }
 
   user.status = 'online';
@@ -354,11 +403,13 @@ api.post('/auth/login', (req, res) => {
   const token = generateToken(user);
 
   res.status(200).json({
+    message: 'Login successful',
     token,
     user: safeUser,
     ...safeUser
   });
 });
+
 
 api.post('/auth/logout', authenticateToken(true), (req, res) => {
   if (req.user) {

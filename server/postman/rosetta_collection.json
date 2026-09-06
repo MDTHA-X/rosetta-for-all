@@ -566,6 +566,10 @@
           {
             "key": "Content-Type",
             "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer test-token"
           }
         ],
         "body": {
@@ -607,6 +611,10 @@
           {
             "key": "Content-Type",
             "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer test-token"
           }
         ],
         "body": {
@@ -645,7 +653,12 @@
       ],
       "request": {
         "method": "GET",
-        "header": [],
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer test-token"
+          }
+        ],
         "url": {
           "raw": "{{baseUrl}}/api/cards?list=in-progress",
           "host": [
@@ -683,11 +696,17 @@
       ],
       "request": {
         "method": "DELETE",
-        "header": [],
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer test-token"
+          }
+        ],
         "url": {
           "raw": "{{baseUrl}}/api/cards/{{createdCardId}}",
           "host": [
             "{{baseUrl}}"
+
           ],
           "path": [
             "api",

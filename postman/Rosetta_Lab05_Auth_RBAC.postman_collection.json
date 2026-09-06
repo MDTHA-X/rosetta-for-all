@@ -1,0 +1,389 @@
+{
+  "info": {
+    "_postman_id": "c5d6e7f8-1a2b-3c4d-5e6f-7a8b9c0d1e2f",
+    "name": "Rosetta Lab 05 - Authentication and Authorization (RBAC)",
+    "description": "Automated Postman Test Suite for Lab 05 covering User Registration, Input Validation, Duplicate Email Check, Bcrypt Password Hashing, JWT Login, Authentication Middleware, and Role-Based Access Control (RBAC).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01. User Registration (Valid Input)",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const randomId = Math.floor(Math.random() * 100000);",
+              "pm.environment.set('testUserEmail', 'student_' + randomId + '@rosetta.local');",
+              "pm.environment.set('testUsername', 'student_' + randomId);"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('01.1 - Status code is 201 Created', function () { pm.response.to.have.status(201); });",
+              "pm.test('01.2 - Returns JWT token', function () { const d = pm.response.json(); pm.expect(d.token).to.be.a('string').and.not.empty; });",
+              "pm.test('01.3 - User object contains role User and email', function () { const d = pm.response.json(); pm.expect(d.user.role).to.eql('User'); pm.expect(d.user.email).to.eql(pm.environment.get('testUserEmail')); });",
+              "pm.test('01.4 - Password is not leaked in response', function () { const d = pm.response.json(); pm.expect(d.user.password).to.be.undefined; pm.expect(d.password).to.be.undefined; });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Khadiza Akter\",\n  \"email\": \"{{testUserEmail}}\",\n  \"username\": \"{{testUsername}}\",\n  \"password\": \"securepassword123\",\n  \"role\": \"User\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/register",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "auth", "register"]
+        }
+      }
+    },
+    {
+      "name": "02. Check Duplicate Email Registration",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('02.1 - Status code is 409 Conflict', function () { pm.response.to.have.status(409); });",
+              "pm.test('02.2 - Error indicates duplicate email', function () { const d = pm.response.json(); pm.expect(d.error).to.include('already registered'); });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Duplicate User\",\n  \"email\": \"{{testUserEmail}}\",\n  \"username\": \"duplicate_user\",\n  \"password\": \"securepassword123\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/register",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "auth", "register"]
+        }
+      }
+    },
+    {
+      "name": "03. Validate Registration Input (Short Password)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('03.1 - Status code is 400 Bad Request', function () { pm.response.to.have.status(400); });",
+              "pm.test('03.2 - Error indicates password requirement', function () { const d = pm.response.json(); pm.expect(d.error).to.include('at least 6 characters'); });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Invalid User\",\n  \"email\": \"invalid@rosetta.local\",\n  \"password\": \"123\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/register",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "auth", "register"]
+        }
+      }
+    },
+    {
+      "name": "04. User Login (Verify Email & Password -> Extract Token)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('04.1 - Status code is 200 OK', function () { pm.response.to.have.status(200); });",
+              "pm.test('04.2 - Returns valid JWT token', function () { const d = pm.response.json(); pm.expect(d.token).to.be.a('string').and.not.empty; pm.environment.set('userToken', d.token); });",
+              "pm.test('04.3 - User object is sanitized', function () { const d = pm.response.json(); pm.expect(d.user.email).to.eql(pm.environment.get('testUserEmail')); pm.expect(d.user.password).to.be.undefined; });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{testUserEmail}}\",\n  \"password\": \"securepassword123\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "auth", "login"]
+        }
+      }
+    },
+    {
+      "name": "05. Login with Invalid Password",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('05.1 - Status code is 401 Unauthorized', function () { pm.response.to.have.status(401); });",
+              "pm.test('05.2 - Error message indicates invalid credentials', function () { const d = pm.response.json(); pm.expect(d.error).to.include('Invalid'); });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{testUserEmail}}\",\n  \"password\": \"wrongpassword\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "auth", "login"]
+        }
+      }
+    },
+    {
+      "name": "06. Admin Login (Extract Admin Token)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('06.1 - Status code is 200 OK', function () { pm.response.to.have.status(200); });",
+              "pm.test('06.2 - User role is Admin', function () { const d = pm.response.json(); pm.expect(d.user.role).to.eql('Admin'); pm.environment.set('adminToken', d.token); });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"tanjim@rosetta.local\",\n  \"password\": \"password123\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "auth", "login"]
+        }
+      }
+    },
+    {
+      "name": "07. Access Protected Endpoint Without Token (Missing Token)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('07.1 - Status code is 401 Unauthorized', function () { pm.response.to.have.status(401); });",
+              "pm.test('07.2 - Error indicates missing token', function () { const d = pm.response.json(); pm.expect(d.message).to.include('Token missing'); });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/cards",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "cards"]
+        }
+      }
+    },
+    {
+      "name": "08. Access Protected Endpoint With Invalid Token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('08.1 - Status code is 401 Unauthorized', function () { pm.response.to.have.status(401); });",
+              "pm.test('08.2 - Error indicates invalid or expired token', function () { const d = pm.response.json(); pm.expect(d.message).to.include('Invalid or expired token'); });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer invalid.jwt.signature" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/cards",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "cards"]
+        }
+      }
+    },
+    {
+      "name": "09. Access Protected Endpoint With Valid Token (User Role)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('09.1 - Status code is 200 OK', function () { pm.response.to.have.status(200); });",
+              "pm.test('09.2 - Returns array of cards', function () { const d = pm.response.json(); pm.expect(d).to.be.an('array'); });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{userToken}}" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/cards",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "cards"]
+        }
+      }
+    },
+    {
+      "name": "10. Create New Card With Valid Token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('10.1 - Status code is 201 Created', function () { pm.response.to.have.status(201); });",
+              "pm.test('10.2 - Returns created card object and id', function () { const d = pm.response.json(); pm.expect(d.id).to.be.a('string'); pm.environment.set('createdCardId', d.id); });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{userToken}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Security Audit RBAC Card\",\n  \"list\": \"todo\",\n  \"priority\": \"high\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/cards",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "cards"]
+        }
+      }
+    },
+    {
+      "name": "11. RBAC Test: Regular User Attempting Delete (Forbidden 403)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('11.1 - Status code is 403 Forbidden', function () { pm.response.to.have.status(403); });",
+              "pm.test('11.2 - Error indicates Admin role required', function () { const d = pm.response.json(); pm.expect(d.message).to.include('Admin'); });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{userToken}}" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/cards/{{createdCardId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "cards", "{{createdCardId}}"]
+        }
+      }
+    },
+    {
+      "name": "12. RBAC Test: Admin User Attempting Delete (Allowed 200)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('12.1 - Status code is 200 OK', function () { pm.response.to.have.status(200); });",
+              "pm.test('12.2 - Success confirmation returned', function () { const d = pm.response.json(); pm.expect(d.success).to.be.true; });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/cards/{{createdCardId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "cards", "{{createdCardId}}"]
+        }
+      }
+    },
+    {
+      "name": "13. Get Authenticated User Profile (/auth/me)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('13.1 - Status code is 200 OK', function () { pm.response.to.have.status(200); });",
+              "pm.test('13.2 - Returns current user details without password', function () { const d = pm.response.json(); pm.expect(d.email).to.eql(pm.environment.get('testUserEmail')); pm.expect(d.password).to.be.undefined; });"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{userToken}}" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/me",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "auth", "me"]
+        }
+      }
+    }
+  ]
+}

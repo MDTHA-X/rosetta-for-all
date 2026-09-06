@@ -5,12 +5,16 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "test": "newman run postman/rosetta_collection.json -e postman/rosetta_environment.json -r cli,htmlextra --reporter-htmlextra-export reports/newman_report.html"
+    "test": "newman run postman/rosetta_collection.json -e postman/rosetta_environment.json -r cli,htmlextra --reporter-htmlextra-export reports/newman_report.html",
+    "test:lab5": "newman run postman/Rosetta_Lab05_Auth_RBAC.postman_collection.json -e postman/rosetta_environment.json"
+
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "dotenv": "^17.4.2",
     "express": "^4.21.0",
+    "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.9.2"
   },
   "devDependencies": {

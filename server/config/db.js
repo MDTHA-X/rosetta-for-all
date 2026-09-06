@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 import Card from '../models/Card.js';
 import User from '../models/User.js';
 import Channel from '../models/Channel.js';
@@ -20,14 +21,16 @@ const seedData = async () => {
       ]);
     }
 
-    // Seed Users
+    // Seed Users with hashed passwords
     if (await User.countDocuments() === 0) {
       console.log('Seeding initial users...');
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash('password123', salt);
       await User.insertMany([
-        { id: "u-1", name: "Tanjim Hossen", email: "tanjim@rosetta.local", username: "tanjim", password: "password123", role: "Admin", status: "online", customStatus: "Building Rosetta 🚀", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" },
-        { id: "u-2", name: "Alex Rivera", email: "alex@rosetta.local", username: "arivera", password: "password123", role: "Lead Developer", status: "online", customStatus: "Refactoring APIs", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" },
-        { id: "u-3", name: "Sarah Chen", email: "sarah@rosetta.local", username: "schen", password: "password123", role: "Product Designer", status: "idle", customStatus: "Designing Kanban UI", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80" },
-        { id: "u-4", name: "Marcus Vance", email: "marcus@rosetta.local", username: "mvance", password: "password123", role: "QA Engineer", status: "dnd", customStatus: "Testing Known Network", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80" }
+        { id: "u-1", name: "Tanjim Hossen", email: "tanjim@rosetta.local", username: "tanjim", password: hashedPassword, role: "Admin", status: "online", customStatus: "Building Rosetta 🚀", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" },
+        { id: "u-2", name: "Alex Rivera", email: "alex@rosetta.local", username: "arivera", password: hashedPassword, role: "User", status: "online", customStatus: "Refactoring APIs", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" },
+        { id: "u-3", name: "Sarah Chen", email: "sarah@rosetta.local", username: "schen", password: hashedPassword, role: "User", status: "idle", customStatus: "Designing Kanban UI", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80" },
+        { id: "u-4", name: "Marcus Vance", email: "marcus@rosetta.local", username: "mvance", password: hashedPassword, role: "User", status: "dnd", customStatus: "Testing Known Network", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80" }
       ]);
     }
 
@@ -46,9 +49,9 @@ const seedData = async () => {
       console.log('Seeding initial members...');
       await Member.insertMany([
         { id: "m-1", name: "Tanjim Hossen", email: "tanjim@rosetta.local", username: "tanjim", role: "Admin", status: "online", customStatus: "Building Rosetta 🚀", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" },
-        { id: "m-2", name: "Alex Rivera", email: "alex@rosetta.local", username: "arivera", role: "Lead Developer", status: "online", customStatus: "Refactoring APIs", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" },
-        { id: "m-3", name: "Sarah Chen", email: "sarah@rosetta.local", username: "schen", role: "Product Designer", status: "idle", customStatus: "Designing Kanban UI", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80" },
-        { id: "m-4", name: "Marcus Vance", email: "marcus@rosetta.local", username: "mvance", role: "QA Engineer", status: "dnd", customStatus: "Testing Known Network", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80" }
+        { id: "m-2", name: "Alex Rivera", email: "alex@rosetta.local", username: "arivera", role: "User", status: "online", customStatus: "Refactoring APIs", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" },
+        { id: "m-3", name: "Sarah Chen", email: "sarah@rosetta.local", username: "schen", role: "User", status: "idle", customStatus: "Designing Kanban UI", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80" },
+        { id: "m-4", name: "Marcus Vance", email: "marcus@rosetta.local", username: "mvance", role: "User", status: "dnd", customStatus: "Testing Known Network", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80" }
       ]);
     }
 
@@ -92,13 +95,13 @@ const seedData = async () => {
 const connectDB = async () => {
   try {
     const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/rosetta';
-    const conn = await mongoose.connect(mongoURI);
+    const conn = await mongoose.connect(mongoURI, { serverSelectionTimeoutMS: 2500 });
     console.log(`MongoDB Connected: ${conn.connection.host}`);
     await seedData();
   } catch (error) {
-    console.error(`Error connecting to MongoDB: ${error.message}`);
-    process.exit(1);
+    console.warn(`⚠️ Notice: MongoDB connection skipped (${error.message}). Continuing with active memory/JSON fallback.`);
   }
 };
 
 export default connectDB;
+
