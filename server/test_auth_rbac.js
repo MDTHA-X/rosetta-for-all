@@ -341,8 +341,8 @@ async function runTests() {
   {
     let lastStatus = 200;
     // Spoof IP so we don't interfere with the main test suite limit.
-    // The max limit is 20, so we send 21 requests.
-    for (let i = 0; i < 21; i++) {
+    // The max limit is 100, so we send 101 requests.
+    for (let i = 0; i < 101; i++) {
       const res = await fetch(`${BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 
@@ -357,7 +357,7 @@ async function runTests() {
       lastStatus = res.status;
     }
     
-    assert('21. Exceeding 20 login attempts returns 429 Too Many Requests', lastStatus === 429, `Got ${lastStatus}`);
+    assert('21. Exceeding 100 login attempts returns 429 Too Many Requests', lastStatus === 429, `Got ${lastStatus}`);
   }
 
   // -----------------------------------------------------------------
