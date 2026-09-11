@@ -99,7 +99,17 @@ const connectDB = async () => {
     console.log(`MongoDB Connected: ${conn.connection.host}`);
     await seedData();
   } catch (error) {
-    console.warn(`⚠️ Notice: MongoDB connection skipped (${error.message}). Continuing with active memory/JSON fallback.`);
+    console.warn(`⚠️ Notice: Standard MongoDB connection failed. Starting in-memory MongoDB Server instead...`);
+    try {
+      const { MongoMemoryServer } = await import('mongodb-memory-server');
+      const mongoServer = await MongoMemoryServer.create();
+      const inMemoryUri = mongoServer.getUri();
+      const conn = await mongoose.connect(inMemoryUri);
+      console.log(`✅ In-Memory MongoDB Connected: ${conn.connection.host}`);
+      await seedData();
+    } catch (fallbackError) {
+      console.error('In-memory MongoDB fallback also failed:', fallbackError.message);
+    }
   }
 };
 

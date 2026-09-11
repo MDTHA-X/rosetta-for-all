@@ -385,7 +385,7 @@
       "request": {
         "method": "GET",
         "header": [
-          { "key": "Authorization", "value": "Bearer invalid.jwt.signature" }
+          { "key": "Authorization", "value": "Bearer {{invalidToken}}" }
         ],
         "url": {
           "raw": "{{baseUrl}}/api/cards",

@@ -62,18 +62,20 @@ export const register = async (req, res) => {
       existingUser = await User.findOne({
         $or: [{ email: cleanEmail }, { username: cleanUsername }]
       });
-    } catch (err) {
-      // MongoDB not connected
-    }
+    } catch (err) {}
 
-    if (existingUser) {
-      if (existingUser.email === cleanEmail) {
+    // Fallback check
+    const { db, saveData } = await import('../config/mockDb.js');
+    const fallbackExists = db.users.find(u => u.email === cleanEmail || u.username === cleanUsername);
+
+    if (existingUser || fallbackExists) {
+      if ((existingUser && existingUser.email === cleanEmail) || (fallbackExists && fallbackExists.email === cleanEmail)) {
         return res.status(409).json({ error: 'Email is already registered' });
       }
       return res.status(409).json({ error: 'Username already exists' });
     }
 
-    // 4. Create new user (password is automatically hashed by UserSchema pre-save hook)
+    // 4. Create new user
     const userId = `u-${Date.now()}`;
     const newUser = new User({
       id: userId,
@@ -90,12 +92,23 @@ export const register = async (req, res) => {
 
     try {
       await newUser.save();
-    } catch (err) {
-      if (err.code === 11000) {
-        return res.status(409).json({ error: 'Email is already registered' });
-      }
-      console.warn('MongoDB save warning in register:', err.message);
-    }
+    } catch (err) {}
+
+    // Sync to mockDb
+    const plainUser = {
+      id: newUser.id,
+      name: newUser.name,
+      email: newUser.email,
+      username: newUser.username,
+      password: newUser.password,
+      role: newUser.role,
+      status: newUser.status,
+      customStatus: newUser.customStatus,
+      avatar: newUser.avatar,
+      createdAt: newUser.createdAt
+    };
+    db.users.push(plainUser);
+    saveData(db);
 
     // 5. Generate JWT Token
     const token = generateToken(newUser);
@@ -135,8 +148,22 @@ export const login = async (req, res) => {
       user = await User.findOne({
         $or: [{ email: loginId }, { username: loginId }]
       });
-    } catch (err) {
-      // MongoDB not connected
+    } catch (err) {}
+
+    // Fallback check
+    const { db, saveData } = await import('../config/mockDb.js');
+    if (!user) {
+      user = db.users.find(u => (u.email && u.email.toLowerCase() === loginId) || (u.username && u.username.toLowerCase() === loginId));
+      if (user) {
+        // mock comparePassword
+        user.comparePassword = async function(pwd) {
+          if (this.password.startsWith('$2a$') || this.password.startsWith('$2b$')) {
+            const bcrypt = await import('bcryptjs');
+            return await bcrypt.compare(pwd, this.password);
+          }
+          return this.password === pwd;
+        };
+      }
     }
 
     if (!user) {
@@ -151,8 +178,15 @@ export const login = async (req, res) => {
 
     user.status = 'online';
     try {
-      await user.save();
+      if (user.save) await user.save();
     } catch (e) {}
+
+    // sync mockdb
+    const fallbackUser = db.users.find(u => u.id === user.id);
+    if (fallbackUser) {
+       fallbackUser.status = 'online';
+       saveData(db);
+    }
 
     // 3. Generate JWT token
     const token = generateToken(user);
@@ -181,6 +215,11 @@ export const getMe = async (req, res) => {
       user = await User.findOne({ id: userId });
     } catch (e) {}
 
+    if (!user) {
+      const { db } = await import('../config/mockDb.js');
+      user = db.users.find(u => u.id === userId);
+    }
+
     if (user) {
       return res.status(200).json(sanitizeUser(user));
     }
@@ -207,6 +246,18 @@ export const getUsers = async (req, res) => {
       };
     }
     const users = await User.find(query).select('-password -__v');
+    if (!users || users.length === 0) {
+      const { db } = await import('../config/mockDb.js');
+      let list = db.users;
+      if (term) {
+        list = list.filter(u => 
+          u.name.toLowerCase().includes(term) || 
+          u.username.toLowerCase().includes(term) ||
+          (u.email && u.email.toLowerCase().includes(term))
+        );
+      }
+      return res.status(200).json(list.map(sanitizeUser));
+    }
     return res.status(200).json(users);
   } catch (error) {
     return res.status(500).json({ error: error.message });

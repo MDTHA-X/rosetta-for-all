@@ -1039,7 +1039,7 @@
             "header": [
               {
                 "key": "Authorization",
-                "value": "Bearer invalid-token-12345",
+                "value": "Bearer {{invalidToken}}",
                 "type": "text"
               }
             ],
