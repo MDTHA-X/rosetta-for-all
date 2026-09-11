@@ -333,6 +333,34 @@ async function runTests() {
   }
 
   // -----------------------------------------------------------------
+  // Group 5: Rate Limiting
+  // -----------------------------------------------------------------
+  console.log('\n\x1b[36m[Group 5] Rate Limiting Verification\x1b[0m');
+
+  // Test 21: Trigger IP Rate Limit (429 Too Many Requests)
+  {
+    let lastStatus = 200;
+    // Spoof IP so we don't interfere with the main test suite limit.
+    // The max limit is 20, so we send 21 requests.
+    for (let i = 0; i < 21; i++) {
+      const res = await fetch(`${BASE_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'X-Forwarded-For': '192.168.1.99'
+        },
+        body: JSON.stringify({
+          email: 'spam_user@rosetta.local',
+          password: 'wrongpassword'
+        })
+      });
+      lastStatus = res.status;
+    }
+    
+    assert('21. Exceeding 20 login attempts returns 429 Too Many Requests', lastStatus === 429, `Got ${lastStatus}`);
+  }
+
+  // -----------------------------------------------------------------
   // Summary
   // -----------------------------------------------------------------
   console.log(`\n======================================================`);

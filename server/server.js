@@ -9,11 +9,13 @@ import { fileURLToPath } from 'url';
 import connectDB from './config/db.js';
 import cardRoutes from './routes/cardRoutes.js';
 import User from './models/User.js';
+import { authRateLimiter } from './middleware/rateLimiter.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+app.set('trust proxy', 1); // Required for express-rate-limit behind proxy
 const PORT = process.env.PORT || 3000;
 const DATA_DIR = path.join(__dirname, 'data');
 const DB_FILE = path.join(DATA_DIR, 'store.json');
@@ -278,7 +280,7 @@ api.post('/dev/reset', async (req, res) => {
 
 // 2. AUTH & USERS ENDPOINTS
 // ----------------------------------------------------------------------------
-api.post('/auth/register', async (req, res) => {
+api.post('/auth/register', authRateLimiter, async (req, res) => {
   const { username, email, password, name, role, avatar } = req.body;
   
   if (!name || name.trim() === '') {
@@ -364,7 +366,7 @@ api.post('/auth/register', async (req, res) => {
   });
 });
 
-api.post('/auth/login', async (req, res) => {
+api.post('/auth/login', authRateLimiter, async (req, res) => {
   const { username, email, identifier, password } = req.body;
   const loginId = (identifier || username || email || '').trim().toLowerCase();
 
