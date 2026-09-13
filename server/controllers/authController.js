@@ -33,13 +33,13 @@ export const register = async (req, res) => {
     const { name, email, password, username, role, avatar } = req.body;
 
     // 1. Validate required fields
-    if (!name || name.trim() === '') {
+    if (!name || typeof name !== 'string' || name.trim() === '') {
       return res.status(400).json({ error: 'Name is required' });
     }
-    if (!email || email.trim() === '') {
+    if (!email || typeof email !== 'string' || email.trim() === '') {
       return res.status(400).json({ error: 'Email is required' });
     }
-    if (!password || password.trim() === '') {
+    if (!password || typeof password !== 'string' || password.trim() === '') {
       return res.status(400).json({ error: 'Password is required' });
     }
     if (password.trim().length < 6) {
@@ -53,7 +53,8 @@ export const register = async (req, res) => {
       return res.status(400).json({ error: 'Invalid email format' });
     }
 
-    const cleanUsername = (username || cleanEmail.split('@')[0]).trim().toLowerCase();
+    const rawUsername = (typeof username === 'string' && username.trim() !== '') ? username : cleanEmail.split('@')[0];
+    const cleanUsername = rawUsername.trim().toLowerCase();
     const cleanRole = (role && ['Admin', 'User'].includes(role)) ? role : (role || 'User');
 
     // 3. Check for existing user email
@@ -133,9 +134,12 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, username, identifier, password } = req.body;
-    const loginId = (identifier || email || username || '').trim().toLowerCase();
+    const rawLoginId = (typeof identifier === 'string' && identifier.trim()) ? identifier :
+                       (typeof email === 'string' && email.trim()) ? email :
+                       (typeof username === 'string' && username.trim()) ? username : '';
+    const loginId = rawLoginId.trim().toLowerCase();
 
-    if (!password || password.trim() === '') {
+    if (!password || typeof password !== 'string' || password.trim() === '') {
       return res.status(400).json({ error: 'Password is required' });
     }
     if (!loginId) {
