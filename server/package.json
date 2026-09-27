@@ -5,13 +5,24 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "test": "newman run postman/rosetta_collection.json -e postman/rosetta_environment.json -r cli,htmlextra --reporter-htmlextra-export reports/newman_report.html"
+    "test": "newman run postman/rosetta_collection.json -e postman/rosetta_environment.json -r cli,htmlextra --reporter-htmlextra-export reports/newman_report.html",
+    "test:lab5": "newman run postman/Rosetta_Lab05_Auth_RBAC.postman_collection.json -e postman/rosetta_environment.json",
+    "test:auth": "node test_auth_rbac.js",
+    "test:security": "node test_security.js",
+    "test:all": "npx newman run testcases/Rosetta_API_Tests_Chunk1_of_2.postman_collection.json --env-var baseUrl=http://localhost:3000 --env-var token=test-token && npx newman run testcases/Rosetta_API_Tests_Chunk2_of_2.postman_collection.json --env-var baseUrl=http://localhost:3000 --env-var token=test-token && npx newman run testcases/Rosetta_Lab05_Auth_RBAC.postman_collection.json --env-var baseUrl=http://localhost:3000 && node test_auth_rbac.js http://localhost:3000 && node test_security.js"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "dotenv": "^17.4.2",
     "express": "^4.21.0",
-    "mongoose": "^9.9.2"
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongodb-memory-server": "^11.2.0",
+    "mongoose": "^9.9.2",
+    "xss-clean": "^0.1.4"
   },
   "devDependencies": {
     "autocannon": "^8.0.0",

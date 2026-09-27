@@ -9,3 +9,7 @@ jmeter/
 reports/
 scripts/
 ASSIGNMENT_REPORT.md
+.DS_Store
+*.zip
+Rosetta-For-All/
+

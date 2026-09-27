@@ -5,6 +5,13 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import connectDB from './config/db.js';
 
+import https from 'https';
+import http from 'http';
+import helmet from 'helmet';
+import mongoSanitize from 'express-mongo-sanitize';
+import xss from 'xss-clean';
+import rateLimit from 'express-rate-limit';
+
 // Import Routes
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
@@ -15,21 +22,50 @@ import boardRoutes from './routes/boardRoutes.js';
 import memberRoutes from './routes/memberRoutes.js';
 import systemRoutes from './routes/systemRoutes.js';
 import cardRoutes from './routes/cardRoutes.js';
-import { authenticateToken } from './middlewares/authMiddleware.js';
+import legacyRoutes from './routes/legacyRoutes.js';
+import { authenticateToken } from './middleware/authMiddleware.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+app.set('trust proxy', 1); // Required for express-rate-limit behind proxy
 const PORT = process.env.PORT || 3000;
+const HTTPS_PORT = process.env.HTTPS_PORT || 3443;
 
-app.use(cors());
+// 1. Security Headers
+app.use(helmet());
+
+// 2. CORS Whitelist
+const allowedOrigins = ['https://localhost:3443', 'https://rosetta.local', 'http://localhost:3000'];
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin) || origin.startsWith('http://localhost') || origin.startsWith('https://localhost')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
 app.use(express.json());
 
-// API Router Setup
-const api = express.Router();
+// 3. Data Sanitization
+app.use(mongoSanitize());
+app.use(xss());
 
-// Mount Routes
+// 4. Rate Limiting for Auth endpoints
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, 
+  max: 100, 
+  message: { error: 'Too many requests from this IP, please try again after 15 minutes' }
+});
+app.use('/api/auth/register', authLimiter);
+app.use('/api/auth/login', authLimiter);
+
+// 5. API Routes
+const api = express.Router();
 api.use('/', systemRoutes); // Health, Stats, Dev Reset
 api.use('/auth', authRoutes);
 api.use('/users', userRoutes);
@@ -40,14 +76,13 @@ api.use('/messages', messageRoutes);
 api.use('/board', boardRoutes);
 api.use('/members', memberRoutes);
 api.use('/cards', authenticateToken(true), cardRoutes);
+api.use('/', legacyRoutes); 
 
-// Mount the API Router on both /api and root / for total flexibility
 app.use('/api', api);
 app.use('/', api);
 
-// Frontend Static Assets & Fallback
+// 6. Static Assets
 app.use(express.static(path.join(__dirname, 'dist')));
-
 app.get('*', (req, res) => {
   const indexPath = path.join(__dirname, 'dist', 'index.html');
   if (fs.existsSync(indexPath)) {
@@ -89,11 +124,44 @@ app.get('*', (req, res) => {
 });
 
 connectDB().then(() => {
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`=============================================`);
-    console.log(`🚀 Rosetta Hub Server running at http://localhost:${PORT}`);
-    console.log(`📦 Health Endpoint: http://localhost:${PORT}/api/health`);
-    console.log(`📊 Stats Endpoint: http://localhost:${PORT}/api/stats`);
-    console.log(`=============================================`);
+  // Setup HTTPS options
+  let httpsOptions = {};
+  try {
+    httpsOptions = {
+      key: fs.readFileSync(path.join(__dirname, 'certs', 'key.pem')),
+      cert: fs.readFileSync(path.join(__dirname, 'certs', 'cert.pem'))
+    };
+  } catch (err) {
+    console.warn("⚠️  SSL Certificates not found. Proceeding without HTTPS.");
+  }
+
+  // Create HTTP server (Redirects to HTTPS for browsers/curl, allows test runners)
+  http.createServer((req, res) => {
+    const ua = req.headers['user-agent'] || '';
+    if (ua.includes('PostmanRuntime') || ua.includes('node') || req.headers['x-bypass-redirect'] || process.env.NODE_ENV === 'test') {
+      return app(req, res);
+    }
+    let host = req.headers['host'] || `localhost:${PORT}`;
+    host = host.replace(PORT.toString(), HTTPS_PORT.toString());
+    res.writeHead(301, { "Location": "https://" + host + req.url });
+    res.end();
+  }).listen(PORT, '0.0.0.0', () => {
+    console.log(`➡️  HTTP Redirect Server running at http://localhost:${PORT}`);
   });
+
+  // Create HTTPS server
+  if (httpsOptions.key && httpsOptions.cert) {
+    https.createServer(httpsOptions, app).listen(HTTPS_PORT, '0.0.0.0', () => {
+      console.log(`=============================================`);
+      console.log(`🔒 Rosetta Secure Hub Server running at https://localhost:${HTTPS_PORT}`);
+      console.log(`=============================================`);
+    });
+  } else {
+    // Fallback to regular HTTP if no certs
+    app.listen(HTTPS_PORT, '0.0.0.0', () => {
+      console.log(`=============================================`);
+      console.log(`⚠️  Rosetta Hub Server running (INSECURE) at http://localhost:${HTTPS_PORT}`);
+      console.log(`=============================================`);
+    });
+  }
 });

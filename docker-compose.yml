@@ -14,6 +14,10 @@ services:
     restart: always
     expose:
       - "3000"
+      - "3443"
+    ports:
+      - "3000:3000"
+      - "3443:3443"
     environment:
       - PORT=3000
       - NODE_ENV=production
