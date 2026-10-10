@@ -15,19 +15,14 @@ const userSchema = new mongoose.Schema({
 });
 
 // Pre-save hook: Hash user password before storing it
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
+userSchema.pre('save', async function () {
+  if (!this.isModified('password')) return;
   // Prevent double-hashing if password is already a bcrypt hash
   if (this.password.startsWith('$2a$') || this.password.startsWith('$2b$')) {
-    return next();
+    return;
   }
-  try {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
-  } catch (err) {
-    next(err);
-  }
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
 });
 
 // Instance method to verify password against hashed password

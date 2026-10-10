@@ -264,4 +264,190 @@ export const getUsers = async (req, res) => {
   }
 };
 
-export default { register, login, getMe, getUsers, sanitizeUser, generateToken };
+/**
+ * User Logout Endpoint
+ */
+export const logout = async (req, res) => {
+  try {
+    const userId = req.user?.id || req.user?.userId;
+    if (userId) {
+      try {
+        await User.findOneAndUpdate({ id: userId }, { status: 'offline' });
+      } catch (e) {}
+
+      const { db, saveData } = await import('../config/mockDb.js');
+      const user = db.users.find(u => u.id === userId);
+      if (user) {
+        user.status = 'offline';
+        saveData(db);
+      }
+    }
+    return res.status(200).json({ success: true, message: 'Logged out successfully' });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+/**
+ * Refresh JWT Token
+ */
+export const refreshToken = async (req, res) => {
+  try {
+    const userId = req.user?.id || req.user?.userId;
+    let user = null;
+    try {
+      user = await User.findOne({ id: userId });
+    } catch (e) {}
+
+    if (!user) {
+      const { db } = await import('../config/mockDb.js');
+      user = db.users.find(u => u.id === userId) || db.users[0];
+    }
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const token = generateToken(user);
+    return res.status(200).json({
+      token,
+      user: sanitizeUser(user)
+    });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+/**
+ * Update Authenticated User Profile
+ */
+export const updateMe = async (req, res) => {
+  try {
+    const userId = req.user?.id || req.user?.userId;
+    const { name, avatar, role, status, customStatus } = req.body;
+    const updates = {};
+    if (name !== undefined) updates.name = name.trim();
+    if (avatar !== undefined) updates.avatar = avatar.trim();
+    if (role !== undefined) updates.role = role.trim();
+    if (status !== undefined) updates.status = status;
+    if (customStatus !== undefined) updates.customStatus = customStatus;
+
+    let updatedUser = null;
+    try {
+      updatedUser = await User.findOneAndUpdate({ id: userId }, updates, { new: true }).select('-password -__v');
+    } catch (e) {}
+
+    const { db, saveData } = await import('../config/mockDb.js');
+    const user = db.users.find(u => u.id === userId);
+    if (user) {
+      Object.assign(user, updates);
+      const member = db.members.find(m => m.id === user.id);
+      if (member) Object.assign(member, updates);
+      saveData(db);
+      if (!updatedUser) updatedUser = sanitizeUser(user);
+    }
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    return res.status(200).json(sanitizeUser(updatedUser));
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+/**
+ * Update Password
+ */
+export const updatePassword = async (req, res) => {
+  try {
+    const userId = req.user?.id || req.user?.userId;
+    const { currentPassword, newPassword } = req.body;
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({ error: 'currentPassword and newPassword are required' });
+    }
+
+    let user = null;
+    try {
+      user = await User.findOne({ id: userId });
+    } catch (e) {}
+
+    const { db, saveData } = await import('../config/mockDb.js');
+    let fallbackUser = null;
+    if (!user) {
+      fallbackUser = db.users.find(u => u.id === userId);
+    }
+
+    const bcrypt = (await import('bcryptjs')).default;
+    let isMatch = false;
+
+    if (user) {
+      isMatch = await user.comparePassword(currentPassword.trim());
+    } else if (fallbackUser) {
+      if (fallbackUser.password && (fallbackUser.password.startsWith('$2a$') || fallbackUser.password.startsWith('$2b$'))) {
+        isMatch = await bcrypt.compare(currentPassword.trim(), fallbackUser.password);
+      } else {
+        isMatch = fallbackUser.password === currentPassword.trim();
+      }
+    }
+
+    if (!isMatch) {
+      return res.status(401).json({ error: 'Current password does not match' });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword.trim(), salt);
+
+    if (user) {
+      user.password = hashedPassword;
+      await user.save();
+    }
+    if (fallbackUser) {
+      fallbackUser.password = hashedPassword;
+      saveData(db);
+    }
+
+    return res.status(200).json({ success: true, message: 'Password updated successfully' });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+/**
+ * Get User By ID
+ */
+export const getUserById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    let user = null;
+    try {
+      user = await User.findOne({ id }).select('-password -__v');
+    } catch (e) {}
+
+    if (!user) {
+      const { db } = await import('../config/mockDb.js');
+      user = db.users.find(u => u.id === id);
+    }
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    return res.status(200).json(sanitizeUser(user));
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+export default {
+  register,
+  login,
+  logout,
+  refreshToken,
+  getMe,
+  updateMe,
+  updatePassword,
+  getUsers,
+  getUserById,
+  sanitizeUser,
+  generateToken
+};

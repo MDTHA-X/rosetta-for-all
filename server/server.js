@@ -13,12 +13,14 @@ import rateLimit from 'express-rate-limit';
 
 import cardRoutes from './routes/cardRoutes.js';
 import authRoutes from './routes/authRoutes.js';
+import { getUsers, getUserById } from './controllers/authController.js';
 import legacyRoutes from './routes/legacyRoutes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+app.set('trust proxy', 1);
 const PORT = process.env.PORT || 3000;
 const HTTPS_PORT = process.env.HTTPS_PORT || 3443;
 
@@ -57,6 +59,8 @@ app.use('/api/auth/login', authLimiter);
 const api = express.Router();
 api.use('/auth', authRoutes);
 api.use('/cards', cardRoutes);
+api.get('/users', getUsers);
+api.get('/users/:id', getUserById);
 api.use('/', legacyRoutes); 
 
 app.use('/api', api);
@@ -116,29 +120,24 @@ connectDB().then(() => {
     console.warn("⚠️  SSL Certificates not found. Proceeding without HTTPS.");
   }
 
-  // Create HTTP server (Redirects to HTTPS)
-  http.createServer((req, res) => {
-    let host = req.headers['host'] || `localhost:${PORT}`;
-    host = host.replace(PORT.toString(), HTTPS_PORT.toString());
-    res.writeHead(301, { "Location": "https://" + host + req.url });
-    res.end();
-  }).listen(PORT, '0.0.0.0', () => {
-    console.log(`➡️  HTTP Redirect Server running at http://localhost:${PORT}`);
+  // Create HTTP server on PORT (serves app directly for local development, API tests, and Vite proxy)
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`=============================================`);
+    console.log(`🚀 Rosetta Hub Server running at http://localhost:${PORT}`);
+    console.log(`📦 Health Endpoint: http://localhost:${PORT}/api/health`);
+    console.log(`📊 Stats Endpoint: http://localhost:${PORT}/api/stats`);
+    console.log(`=============================================`);
   });
 
-  // Create HTTPS server
+  // Create HTTPS server on HTTPS_PORT (if SSL certificates are present)
   if (httpsOptions.key && httpsOptions.cert) {
-    https.createServer(httpsOptions, app).listen(HTTPS_PORT, '0.0.0.0', () => {
-      console.log(`=============================================`);
-      console.log(`🔒 Rosetta Secure Hub Server running at https://localhost:${HTTPS_PORT}`);
-      console.log(`=============================================`);
-    });
-  } else {
-    // Fallback to regular HTTP if no certs
-    app.listen(HTTPS_PORT, '0.0.0.0', () => {
-      console.log(`=============================================`);
-      console.log(`⚠️  Rosetta Hub Server running (INSECURE) at http://localhost:${HTTPS_PORT}`);
-      console.log(`=============================================`);
-    });
+    try {
+      https.createServer(httpsOptions, app).listen(HTTPS_PORT, '0.0.0.0', () => {
+        console.log(`🔒 Rosetta Secure Hub Server running at https://localhost:${HTTPS_PORT}`);
+        console.log(`=============================================`);
+      });
+    } catch (err) {
+      console.warn("⚠️ HTTPS server failed to bind:", err.message);
+    }
   }
 });

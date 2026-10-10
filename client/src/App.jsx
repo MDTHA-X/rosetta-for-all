@@ -1,35 +1,59 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import Navbar from './components/Navbar';
+import ProtectedRoute from './components/ProtectedRoute';
+import PublicRoute from './components/PublicRoute';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import DashboardPage from './pages/DashboardPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 export default function App() {
   return (
-    <div
-      style={{
-        margin: 0,
-        padding: 0,
-        width: '100vw',
-        height: '100vh',
-        backgroundColor: '#800000',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontFamily: 'Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif',
-        color: '#ffffff',
-        textAlign: 'center',
-        boxSizing: 'border-box'
-      }}
-    >
-      <h1
-        style={{
-          fontSize: '3.5rem',
-          fontWeight: 800,
-          letterSpacing: '-0.02em',
-          margin: 0,
-          textShadow: '0 4px 12px rgba(0,0,0,0.3)'
-        }}
-      >
-        Welcome to Rosetta , CSE-JU
-      </h1>
-    </div>
+    <BrowserRouter>
+      <AuthProvider>
+        <div className="app-layout">
+          <Navbar />
+          <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+            <Routes>
+              {/* Home redirect */}
+              <Route path="/" element={<Navigate to="/app" replace />} />
+
+              {/* Public Auth Routes */}
+              <Route
+                path="/login"
+                element={
+                  <PublicRoute>
+                    <LoginPage />
+                  </PublicRoute>
+                }
+              />
+              <Route
+                path="/register"
+                element={
+                  <PublicRoute>
+                    <RegisterPage />
+                  </PublicRoute>
+                }
+              />
+
+              {/* Protected Workspace / Dashboard Route */}
+              <Route
+                path="/app"
+                element={
+                  <ProtectedRoute>
+                    <DashboardPage />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* 404 Fallback */}
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </main>
+        </div>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }

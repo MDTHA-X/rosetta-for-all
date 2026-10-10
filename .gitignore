@@ -13,3 +13,7 @@ ASSIGNMENT_REPORT.md
 *.zip
 Rosetta-For-All/
 
+# SSH private keys
+*.pem.pub
+*vps*.pem
+id_rsa*
