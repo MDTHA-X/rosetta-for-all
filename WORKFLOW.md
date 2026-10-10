@@ -54,4 +54,4 @@ To ensure code stability and maintain quality gates, all team members follow sta
 - **Issue #2 [Closed]:** Duplicate Auth Modules Elimination & Unified Auth Routing (Assigned: Md. Tanjim Hossen Ahad)
 - **Issue #3 [Closed]:** React Router, Auth Context & Reusable Design System (Assigned: Md. Tanjim Hossen Ahad)
 - **Issue #4 [Closed]:** Sign-In Page Implementation & 1-Click Demo Testing (Assigned: Md. Tanjim Hossen Ahad)
-- **Issue #5 [Open - In Progress]:** Register Page UI, Custom Avatar & Validation Rules (Assigned: Khadiza Akter)
+- **Issue #5 [Closed - Completed]:** Register Page UI, Custom Avatar & Validation Rules (Assigned: Khadiza Akter)
