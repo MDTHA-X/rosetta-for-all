@@ -14,7 +14,7 @@ This document provides a comprehensive overview of the security enhancements imp
 - **Description:** To prevent brute-force attacks against user credentials, rate limiting is applied to the login and registration endpoints.
 - **Implementation:**
   - Package: `express-rate-limit`
-  - Rule: A maximum of **10 requests per 15 minutes** per IP address.
+  - Rule: A maximum of **100 requests per 15 minutes** per IP address (configured to accommodate CI test suites while blocking automated brute-force attacks).
   - Applied to: `/api/auth/login` and `/api/auth/register`.
   - Exceeding the limit results in a `429 Too Many Requests` error with an informative message.
 
