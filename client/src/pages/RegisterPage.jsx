@@ -36,7 +36,6 @@ export default function RegisterPage() {
   const [localError, setLocalError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [registeredUser, setRegisteredUser] = useState(null);
-  const [showSpec, setShowSpec] = useState(false);
   const [customSeed, setCustomSeed] = useState('');
 
   // Password strength calculation
@@ -289,51 +288,6 @@ export default function RegisterPage() {
   return (
     <div className="auth-wrapper" style={{ padding: '40px 16px' }}>
       <Card className="auth-card" style={{ maxWidth: 580 }}>
-        {/* Week 1 100% Delivery Completed Banner */}
-        <div className="delivery-complete-banner">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span className="delivery-badge-complete">
-              ✨ Week 1 • 100% Scope Completed
-            </span>
-            <button
-              type="button"
-              onClick={() => setShowSpec(!showSpec)}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: '#6ee7b7',
-                fontSize: '0.8rem',
-                cursor: 'pointer',
-                textDecoration: 'underline'
-              }}
-            >
-              {showSpec ? 'Hide Delivery Details' : 'View Delivery Matrix'}
-            </button>
-          </div>
-
-          <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#ffffff', marginTop: 4 }}>
-            🤝 Joint Course Delivery: CSE-JU Web Programming-II
-          </div>
-          <div style={{ fontSize: '0.84rem', color: '#d1fae5', marginTop: 2, lineHeight: 1.4 }}>
-            <strong>Tanjim Hossen Ahad</strong> (Roll 340 • 70% Scope) & <strong>Khadiza Akter</strong> (Roll 367 • 30% Scope)
-          </div>
-
-          {showSpec && (
-            <div style={{ marginTop: 12, borderTop: '1px solid rgba(16, 185, 129, 0.3)', paddingTop: 10 }}>
-              <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#a7f3d0', textTransform: 'uppercase' }}>
-                📋 All Week 1 Acceptance Criteria Fulfilled:
-              </div>
-              <ul className="criteria-list" style={{ color: '#d1fae5' }}>
-                <li>✅ <strong>Backend Clean Clone:</strong> In-memory MongoDB auto-fallback & duplicate auth removal</li>
-                <li>✅ <strong>Automated Quality Gate:</strong> 100% green tests (190 total test assertions passed)</li>
-                <li>✅ <strong>React SPA Architecture:</strong> Routing, AuthContext, ProtectedRoute & White-Black-Maroon theme</li>
-                <li>✅ <strong>Authentication Suite:</strong> Production Sign-in page + 1-Click Demo accounts</li>
-                <li>✅ <strong>Registration Suite:</strong> Dynamic Avatar Picker, Password Strength Meter, Confirm Pass & RBAC</li>
-              </ul>
-            </div>
-          )}
-        </div>
-
         {/* 1-Click Test Presets */}
         <div className="demo-accounts-box" style={{ marginTop: 0, marginBottom: 20 }}>
           <div className="demo-title">
