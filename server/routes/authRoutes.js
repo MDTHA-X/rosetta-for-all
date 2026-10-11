@@ -4,6 +4,7 @@ import {
   login,
   logout,
   refreshToken,
+  refresh,
   getMe,
   updateMe,
   updatePassword,
@@ -15,13 +16,12 @@ import { authRateLimiter } from '../middleware/rateLimiter.js';
 
 const router = express.Router();
 
-// Public endpoints
 router.post('/register', authRateLimiter, register);
 router.post('/login', authRateLimiter, login);
 
 // Protected endpoints
 router.post('/logout', authenticateToken(true), logout);
-router.post('/refresh', authenticateToken(true), refreshToken);
+router.post('/refresh', authenticateToken(true), refreshToken || refresh);
 router.get('/me', authenticateToken(true), getMe);
 router.patch('/me', authenticateToken(true), updateMe);
 router.patch('/me/password', authenticateToken(true), updatePassword);

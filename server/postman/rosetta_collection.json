@@ -566,10 +566,6 @@
           {
             "key": "Content-Type",
             "value": "application/json"
-          },
-          {
-            "key": "Authorization",
-            "value": "Bearer test-token"
           }
         ],
         "body": {
@@ -611,10 +607,6 @@
           {
             "key": "Content-Type",
             "value": "application/json"
-          },
-          {
-            "key": "Authorization",
-            "value": "Bearer test-token"
           }
         ],
         "body": {
@@ -653,12 +645,7 @@
       ],
       "request": {
         "method": "GET",
-        "header": [
-          {
-            "key": "Authorization",
-            "value": "Bearer test-token"
-          }
-        ],
+        "header": [],
         "url": {
           "raw": "{{baseUrl}}/api/cards?list=in-progress",
           "host": [
@@ -696,17 +683,11 @@
       ],
       "request": {
         "method": "DELETE",
-        "header": [
-          {
-            "key": "Authorization",
-            "value": "Bearer test-token"
-          }
-        ],
+        "header": [],
         "url": {
           "raw": "{{baseUrl}}/api/cards/{{createdCardId}}",
           "host": [
             "{{baseUrl}}"
-
           ],
           "path": [
             "api",
@@ -756,12 +737,16 @@
       "script": {
         "type": "text/javascript",
         "exec": [
-          "// Pre-request script - automatically runs before EVERY API call",
-          "console.log('[PRE-REQUEST] Sending request: ' + pm.info.requestName);",
-          "pm.variables.set('preRequestTimestamp', new Date().toISOString());",
-          "if (pm.request.body && pm.request.body.mode === 'raw') {",
-          "    pm.request.headers.upsert({ key: 'Content-Type', value: 'application/json' });",
-          "}"
+          "// 1. Generate a unique ID for this specific test run",
+          "if (!pm.collectionVariables.get('testRunId')) {",
+          "    pm.collectionVariables.set('testRunId', pm.variables.replaceIn('{{$guid}}'));",
+          "}",
+          "",
+          "// 2. Capture the exact time this specific request started",
+          "pm.variables.set('reqTimestamp', new Date().toISOString());",
+          "",
+          "// 3. Log the outgoing request name to the Postman Console for debugging",
+          "console.log(`[${pm.variables.get('testRunId')}] 🚀 Starting Request: ${pm.info.requestName} at ${pm.variables.get('reqTimestamp')}`);"
         ]
       }
     }
