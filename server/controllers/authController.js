@@ -437,4 +437,44 @@ export const getUsers = async (req, res) => {
   }
 };
 
-export default { register, login, logout, refresh, getMe, updateMe, updatePassword, getUsers, sanitizeUser, generateToken };
+/**
+ * Get User By ID
+ */
+export const getUserById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    let user = null;
+    try {
+      user = await User.findOne({ id }).select('-password -__v');
+    } catch (e) {}
+
+    if (!user) {
+      const { db } = await import('../config/mockDb.js');
+      user = db.users.find(u => u.id === id);
+    }
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    return res.status(200).json(sanitizeUser(user));
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+export const refreshToken = refresh;
+
+export default {
+  register,
+  login,
+  logout,
+  refreshToken,
+  refresh,
+  getMe,
+  updateMe,
+  updatePassword,
+  getUsers,
+  getUserById,
+  sanitizeUser,
+  generateToken
+};
