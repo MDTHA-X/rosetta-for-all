@@ -14,17 +14,9 @@ import rateLimit from 'express-rate-limit';
 
 // Import Routes
 import authRoutes from './routes/authRoutes.js';
-import userRoutes from './routes/userRoutes.js';
-import channelRoutes from './routes/channelRoutes.js';
-import messageRoutes from './routes/messageRoutes.js';
-import connectionRoutes from './routes/connectionRoutes.js';
-import boardRoutes from './routes/boardRoutes.js';
-import memberRoutes from './routes/memberRoutes.js';
-import systemRoutes from './routes/systemRoutes.js';
 import cardRoutes from './routes/cardRoutes.js';
-import legacyRoutes from './routes/legacyRoutes.js';
-import { authenticateToken } from './middleware/authMiddleware.js';
 import { getUsers, getUserById } from './controllers/authController.js';
+import legacyRoutes from './routes/legacyRoutes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -67,16 +59,10 @@ app.use('/api/auth/login', authLimiter);
 
 // 5. API Routes
 const api = express.Router();
-api.use('/', systemRoutes); // Health, Stats, Dev Reset
 api.use('/auth', authRoutes);
-api.use('/users', userRoutes);
-api.use('/auth/users', userRoutes); // To handle legacy `/auth/users` matching `/users`
-api.use('/connections', connectionRoutes);
-api.use('/channels', channelRoutes);
-api.use('/messages', messageRoutes);
-api.use('/board', boardRoutes);
-api.use('/members', memberRoutes);
 api.use('/cards', cardRoutes);
+api.get('/users', getUsers);
+api.get('/users/:id', getUserById);
 api.use('/', legacyRoutes); 
 
 app.use('/api', api);
@@ -148,7 +134,11 @@ connectDB().then(() => {
   // Create HTTPS server on HTTPS_PORT (if SSL certificates are present)
   if (httpsOptions.key && httpsOptions.cert) {
     try {
-      https.createServer(httpsOptions, app).listen(HTTPS_PORT, '0.0.0.0', () => {
+      const httpsServer = https.createServer(httpsOptions, app);
+      httpsServer.on('error', (err) => {
+        console.warn("⚠️ HTTPS server failed to bind:", err.message);
+      });
+      httpsServer.listen(HTTPS_PORT, '0.0.0.0', () => {
         console.log(`🔒 Rosetta Secure Hub Server running at https://localhost:${HTTPS_PORT}`);
         console.log(`=============================================`);
       });
