@@ -5,3 +5,4 @@ export const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5
 
 export const APP_NAME = 'Rosetta For All';
 export const APP_TAGLINE = 'Swiss Tournament & Standings Manager';
+

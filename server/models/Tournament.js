@@ -64,3 +64,4 @@ class Tournament {
 }
 
 module.exports = Tournament;
+

@@ -39,14 +39,15 @@ services:
       DB_PASS: rootpassword
       DB_NAME: rosetta_for_all
       JWT_SECRET: rosetta-production-jwt-secret-key-2026
-      CLIENT_URL: http://localhost:3000
+      CLIENT_URL: "*"
     ports:
       - "5001:5001"
+      - "3000:5001"
     depends_on:
       mysql:
         condition: service_healthy
 
-  # Client Application Service (React Native format running on distinct origin)
+  # Client Application Service
   client:
     build:
       context: ./client
@@ -54,10 +55,10 @@ services:
     container_name: rosetta_client
     restart: always
     environment:
-      PORT: 3000
-      REACT_APP_API_URL: http://localhost:5001/api
+      PORT: 80
+      REACT_APP_API_URL: http://40.83.100.54:5001/api
     ports:
-      - "3000:3000"
+      - "80:80"
     depends_on:
       - server
 

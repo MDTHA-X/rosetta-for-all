@@ -10,3 +10,4 @@ router.delete('/:id', requireSuperAdmin, AdminController.deleteAdmin);
 router.delete('/', requireSuperAdmin, AdminController.deleteAdmin);
 
 module.exports = router;
+

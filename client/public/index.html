@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rosetta For All - Swiss Tournament Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="/api-config.js"></script>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface-subtle: #21262d;
+      --border: #30363d;
+      --primary: #1f6feb;
+      --text: #c9d1d9;
+      --text-muted: #8b949e;
+      --text-bright: #f0f6fc;
+      --success: #238636;
+      --warning: #d29922;
+      --danger: #da3633;
+    }
+    [data-theme="light"] {
+      --bg: #f6f8fa;
+      --surface: #ffffff;
+      --surface-subtle: #f3f4f6;
+      --border: #d0d7de;
+      --primary: #0969da;
+      --text: #24292f;
+      --text-muted: #57606a;
+      --text-bright: #1f2328;
+      --success: #1a7f37;
+      --warning: #9a6700;
+      --danger: #cf222e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    .navbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0.75rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .brand { font-size: 1.25rem; font-weight: 800; color: var(--text-bright); text-decoration: none; }
+    .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+    .btn { padding: 0.4rem 0.8rem; border-radius: 6px; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--surface-subtle); color: var(--text); font-size: 0.85rem; }
+    .btn-primary { background: var(--primary); color: #fff; border: none; }
+    .btn-success { background: var(--success); color: #fff; border: none; }
+    .btn-danger { border-color: var(--danger); color: var(--danger); }
+    .container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; margin-bottom: 1rem; }
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+    .badge { font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 6px; }
+    .badge-active { background: rgba(35, 134, 54, 0.2); color: var(--success); border: 1px solid var(--success); }
+    .tabs { display: flex; gap: 0.5rem; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
+    .tab { padding: 0.6rem 1rem; cursor: pointer; font-weight: 600; color: var(--text-muted); border-bottom: 2px solid transparent; }
+    .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { padding: 0.6rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+    th { color: var(--text-muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; background: var(--surface-subtle); }
+    .alert { padding: 0.75rem 1rem; border-radius: 6px; margin-bottom: 1rem; border: 1px solid; }
+    .alert-warning { background: rgba(210, 153, 34, 0.15); border-color: var(--warning); color: var(--warning); }
+    .alert-danger { background: rgba(218, 54, 51, 0.15); border-color: var(--danger); color: var(--danger); }
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; }
+    .modal.active { display: flex; }
+    .modal-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; width: 100%; max-width: 440px; }
+    .input { width: 100%; padding: 0.5rem; border-radius: 6px; border: 1px solid var(--border); background: var(--surface-subtle); color: var(--text-bright); margin-bottom: 0.75rem; font-family: inherit; }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="#" class="brand" onclick="loadTournaments()">♔ Rosetta For All</a>
+    <div class="nav-actions">
+      <button class="btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
+      <span id="userBadge" style="display: none; font-size: 0.85rem; font-weight: 700; color: var(--primary);"></span>
+      <button class="btn btn-primary" id="loginBtn" onclick="openLoginModal()">Login</button>
+    </div>
+  </nav>
+
+  <main class="container" id="app">
+    <p>Loading tournaments...</p>
+  </main>
+
+  <!-- Login Modal -->
+  <div class="modal" id="loginModal">
+    <div class="modal-box">
+      <h3 style="margin-bottom: 0.5rem; color: var(--text-bright);">Arbiter Sign In</h3>
+      <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">Default: mdtha / mdtha</p>
+      <div id="loginAlert"></div>
+      <input type="text" id="loginUser" class="input" placeholder="Username" value="mdtha">
+      <input type="password" id="loginPass" class="input" placeholder="Password" value="mdtha">
+      <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.5rem;">
+        <button class="btn" onclick="closeLoginModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="doLogin()">Sign In</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API = window.ROSETTA_API_URL || '/api';
+    let currentUser = null;
+    let currentTournament = null;
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      document.getElementById('themeBtn').textContent = next === 'dark' ? '🌙' : '☀️';
+    }
+
+    async function checkUser() {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+      try {
+        const res = await fetch(API + '/auth/me', { headers: { 'Authorization': 'Bearer ' + token } });
+        const data = await res.json();
+        if (data.logged_in) {
+          currentUser = data;
+          document.getElementById('userBadge').textContent = '👤 ' + data.username;
+          document.getElementById('userBadge').style.display = 'inline-block';
+          document.getElementById('loginBtn').textContent = 'Logout';
+          document.getElementById('loginBtn').onclick = doLogout;
+        }
+      } catch (e) {}
+    }
+
+    function openLoginModal() { document.getElementById('loginModal').classList.add('active'); }
+    function closeLoginModal() { document.getElementById('loginModal').classList.remove('active'); }
+
+    async function doLogin() {
+      const u = document.getElementById('loginUser').value;
+      const p = document.getElementById('loginPass').value;
+      const alertBox = document.getElementById('loginAlert');
+      alertBox.innerHTML = '';
+
+      try {
+        const res = await fetch(API + '/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: u, password: p })
+        });
+        const data = await res.json();
+
+        if (res.status === 429) {
+          alertBox.innerHTML = '<div class="alert alert-warning">⚠️ Rate limit: 10 requests / 3 min. Try again later.</div>';
+          return;
+        }
+        if (!res.ok) {
+          alertBox.innerHTML = '<div class="alert alert-danger">✕ ' + (data.error || 'Login failed') + '</div>';
+          return;
+        }
+
+        localStorage.setItem('token', data.token);
+        closeLoginModal();
+        await checkUser();
+        if (currentTournament) viewTournament(currentTournament.id);
+        else loadTournaments();
+      } catch (err) {
+        alertBox.innerHTML = '<div class="alert alert-danger">✕ ' + err.message + '</div>';
+      }
+    }
+
+    function doLogout() {
+      localStorage.removeItem('token');
+      currentUser = null;
+      document.getElementById('userBadge').style.display = 'none';
+      document.getElementById('loginBtn').textContent = 'Login';
+      document.getElementById('loginBtn').onclick = openLoginModal;
+      loadTournaments();
+    }
+
+    async function loadTournaments() {
+      currentTournament = null;
+      const root = document.getElementById('app');
+      root.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;"><h2>Tournaments</h2></div>';
+
+      try {
+        const res = await fetch(API + '/tournaments');
+        const list = await res.json();
+        if (!list || list.length === 0) {
+          root.innerHTML += '<div class="card"><p>No tournaments active. Seed database to begin.</p></div>';
+          return;
+        }
+        list.forEach(t => {
+          root.innerHTML += `
+            <div class="card">
+              <div class="card-header">
+                <h3>${t.name}</h3>
+                <span class="badge badge-active">${t.status.toUpperCase()}</span>
+              </div>
+              <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:1rem;">
+                ⏱️ ${t.time_control} • 🔄 ${t.rounds_count} Rounds • Type: ${t.type}
+              </p>
+              <button class="btn btn-primary" onclick="viewTournament(${t.id})">Open Tournament Hub →</button>
+            </div>
+          `;
+        });
+      } catch (err) {
+        root.innerHTML += '<div class="alert alert-danger">Failed to connect to API: ' + err.message + '</div>';
+      }
+    }
+
+    async function viewTournament(id) {
+      const root = document.getElementById('app');
+      root.innerHTML = '<p>Loading tournament details...</p>';
+
+      try {
+        const [tRes, rRes] = await Promise.all([
+          fetch(API + '/tournaments/' + id),
+          fetch(API + '/rounds?tournament_id=' + id + '&standings=true')
+        ]);
+        currentTournament = await tRes.json();
+        const rData = await rRes.json();
+        const rounds = rData.rounds || [];
+        const standings = rData.standings || [];
+
+        renderTournamentHub(currentTournament, rounds, standings);
+      } catch (err) {
+        root.innerHTML = '<div class="alert alert-danger">Error: ' + err.message + '</div>';
+      }
+    }
+
+    function renderTournamentHub(t, rounds, standings) {
+      const root = document.getElementById('app');
+      const isArbiter = !!currentUser;
+
+      let html = `
+        <div style="margin-bottom:1rem;">
+          <button class="btn" onclick="loadTournaments()">← Back to Tournaments</button>
+        </div>
+        <div class="card">
+          <h2>${t.name}</h2>
+          <p style="color:var(--text-muted);font-size:0.85rem;margin-top:0.25rem;">
+            Time Control: ${t.time_control} • Total Rounds: ${t.rounds_count}
+          </p>
+        </div>
+        <div class="tabs">
+          <div class="tab active" onclick="switchTab(this, 'tab-standings')">📊 FIDE Standings</div>
+          <div class="tab" onclick="switchTab(this, 'tab-pairings')">⚔️ Rounds & Pairings (${rounds.length})</div>
+        </div>
+
+        <div id="tab-standings">
+          <table>
+            <thead><tr><th>#</th><th>Player</th><th>Rtg</th><th>PTS</th><th>BH</th><th>SB</th><th>Koya</th><th>TPR</th></tr></thead>
+            <tbody>
+              ${standings.map(s => `
+                <tr>
+                  <td><b>${s.rank}</b></td>
+                  <td>${s.title ? '<span class="badge" style="background:rgba(31,111,235,0.2);color:var(--primary);margin-right:4px;">' + s.title + '</span>' : ''} ${s.name}</td>
+                  <td>${s.rating}</td>
+                  <td style="color:var(--primary);font-weight:800;">${s.score.toFixed(1)}</td>
+                  <td>${s.buchholz}</td>
+                  <td>${s.sonnebornBerger}</td>
+                  <td>${s.koya}</td>
+                  <td>${s.tpr || '-'}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+
+        <div id="tab-pairings" style="display:none;">
+          ${rounds.length === 0 ? '<p>No rounds generated yet.</p>' : ''}
+          ${rounds.map(r => `
+            <div class="card" style="margin-top:1rem;">
+              <div class="card-header">
+                <h4>Round ${r.number}</h4>
+                <span class="badge" style="${r.status === 'completed' ? 'background:rgba(35,134,54,0.2);color:var(--success)' : 'background:rgba(210,153,34,0.2);color:var(--warning)'}">
+                  ${r.status.toUpperCase()}
+                </span>
+              </div>
+              <table>
+                <thead><tr><th>Bd</th><th>White</th><th style="text-align:center;">Score</th><th>Black</th></tr></thead>
+                <tbody>
+                  ${(r.pairings || []).map(p => `
+                    <tr>
+                      <td>${p.board}</td>
+                      <td>Player #${p.white_id || '-'}</td>
+                      <td style="text-align:center;font-weight:700;">${p.result || (p.is_bye ? 'BYE (0.5)' : '-')}</td>
+                      <td>Player #${p.black_id || '-'}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      root.innerHTML = html;
+    }
+
+    function switchTab(el, tabId) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('tab-standings').style.display = tabId === 'tab-standings' ? 'block' : 'none';
+      document.getElementById('tab-pairings').style.display = tabId === 'tab-pairings' ? 'block' : 'none';
+    }
+
+    // Auto-init
+    checkUser();
+    loadTournaments();
+  </script>
+</body>
+</html>

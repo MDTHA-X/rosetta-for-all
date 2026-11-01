@@ -13,3 +13,4 @@ router.delete('/', requireTournamentAdmin, RoundController.delete);
 router.post('/pairings/result', requireTournamentAdmin, RoundController.setPairingResult);
 
 module.exports = router;
+

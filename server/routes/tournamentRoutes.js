@@ -16,3 +16,4 @@ router.post('/assign-admin', requireSuperAdmin, TournamentController.assignAdmin
 router.post('/remove-admin', requireSuperAdmin, TournamentController.removeAdmin);
 
 module.exports = router;
+

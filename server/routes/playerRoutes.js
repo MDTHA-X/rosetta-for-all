@@ -12,3 +12,4 @@ router.delete('/:id', requireTournamentAdmin, PlayerController.delete);
 router.delete('/', requireTournamentAdmin, PlayerController.delete);
 
 module.exports = router;
+
