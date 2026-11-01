@@ -14,7 +14,8 @@ if (isset($_SESSION['admin_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chess Results - Tournament Manager</title>
+    <title>Rosetta For All - Swiss Tournament Manager</title>
+    <meta name="description" content="Modern, lightweight Swiss system tournament management and real-time standings platform.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -29,7 +30,7 @@ if (isset($_SESSION['admin_id'])) {
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#" class="brand">♔ Chess Results</a>
+            <a href="#" class="brand">♔ Rosetta For All</a>
             <div class="nav-links flex items-center gap-2">
                 <button id="themeToggleBtn" class="btn btn-outline" title="Toggle Theme" style="padding: 0.45rem 0.8rem; font-size: 1.1rem; line-height: 1; border-radius: 8px;">
                     <span id="themeIcon">🌙</span>

@@ -109,11 +109,21 @@ if ($method === 'GET') {
         echo json_encode(['success' => true]);
     } else if ($action === 'delete') {
         $round_id = $input['round_id'] ?? null;
+        if (!$round_id) {
+            http_response_code(400);
+            echo json_encode(['error' => 'round_id is required']);
+            exit;
+        }
         DB::query("DELETE FROM pairings WHERE round_id = ?", [$round_id]);
         DB::query("DELETE FROM rounds WHERE id = ?", [$round_id]);
         echo json_encode(['success' => true]);
     } else if ($action === 'reopen') {
         $round_id = $input['round_id'] ?? null;
+        if (!$round_id) {
+            http_response_code(400);
+            echo json_encode(['error' => 'round_id is required']);
+            exit;
+        }
         DB::query("UPDATE rounds SET status = 'draft' WHERE id = ?", [$round_id]);
         echo json_encode(['success' => true]);
     } else {

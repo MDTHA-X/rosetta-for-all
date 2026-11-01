@@ -1,0 +1,31 @@
+# Environment & Local Configuration
+config.php
+.env
+.env.*
+
+# SQLite temporary journal/wal files
+database.sqlite-journal
+database.sqlite-wal
+database.sqlite-shm
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Operating System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE and Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs and runtime data
+*.log
+error_log

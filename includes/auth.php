@@ -2,12 +2,15 @@
 // includes/auth.php
 require_once __DIR__ . '/db.php';
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 function login($username, $password) {
     $admin = DB::fetch("SELECT * FROM admins WHERE username = ?", [$username]);
     if ($admin) {
         if (password_verify($password, $admin['password_hash'])) {
+            session_regenerate_id(true);
             $_SESSION['admin_id'] = (int)$admin['id'];
             $_SESSION['username'] = $admin['username'];
             $_SESSION['is_super'] = (int)($admin['is_super'] ?? 0);

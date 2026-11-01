@@ -1,73 +1,62 @@
-# ♔ Chess Results
+# 🏆 Rosetta For All
 
-> **Modern, Lightweight Swiss Chess Tournament Management System**
+> **Modern, Lightweight Swiss Tournament & Match Management System**
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-chessresults.juchc.i--inaya.com-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://chessresults.juchc.i-inaya.com)
 [![PHP](https://img.shields.io/badge/PHP-8.0%2B-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/)
 [![Database](https://img.shields.io/badge/Database-SQLite%20%7C%20MySQL-003B57?style=for-the-badge&logo=sqlite&logoColor=white)](https://www.sqlite.org/)
+[![Frontend](https://img.shields.io/badge/Frontend-Vanilla%20JS%20%2B%20CSS-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
 ---
 
-## 🌐 Live Website & Links
+## 📖 About Rosetta For All
 
-- **Live Tournament Platform:** [chessresults.juchc.i-inaya.com](https://chessresults.juchc.i-inaya.com)
+**Rosetta For All** is a high-performance, self-hosted web platform designed for arbiters, clubs, and competitive tournament organizers. It streamlines the entire tournament lifecycle—from player registrations, ratings, and seedings to automated Swiss system pairings, live result entries, and official multi-tiebreak standings.
 
----
-
-## 📖 About Chess Results
-
-**Chess Results** is a complete, high-performance web platform designed for chess arbiters, clubs, and tournament organizers. It streamlines the entire lifecycle of a chess tournament—from player registrations and seedings to Swiss pairing generations, result entries, and official multi-tiebreak standings.
-
-Unlike heavy modern JavaScript frameworks that require complex server setups and large build dependencies, **Chess Results** is built with a pure **PHP + Vanilla JS/CSS** single-page application (SPA) architecture. It runs effortlessly on budget shared hosting (cPanel), standard LAMP servers, or locally via a lightweight SQLite file.
+Built with a clean **Pure PHP + Vanilla JavaScript Single-Page Application (SPA)** architecture, Rosetta For All eliminates the weight and fragility of heavy build toolchains. It runs seamlessly on budget shared hosting (cPanel), standard Linux/LAMP servers, Docker, or locally with zero-configuration SQLite.
 
 ---
 
 ## ✨ Key Features
 
-### 🏆 Advanced Swiss Pairing Engine
-- Automated Dutch Swiss system pairing algorithm adhering to official FIDE pairing principles.
-- Handles player color history balancing (White/Black counts), bye allocations, and repeat-pairing prevention.
-- Seamlessly pairs odd numbers of players with automatic bye point awards.
+### 🎯 Automated Swiss Pairing Engine
+- **Dutch Swiss System Algorithm:** Implements pairing standards adhering to official FIDE pairing principles.
+- **Color Balance & History Tracking:** Automatically balances White/Black allocations and respects strict color streaks.
+- **Repeat Prevention & Bye Handling:** Prevents duplicate pairings and smoothly handles odd player counts with automated bye awards.
 
-### 📊 Official FIDE Standings & Tiebreak Scoring
-- Real-time standing updates computed dynamically on every game result.
-- Comprehensive tiebreak metrics including:
-  - **Points (PTS)**
-  - **Buchholz (BH)**
+### 📊 Real-Time Standings & Official Tiebreaks
+- Dynamically computes standings instantly upon match result entry.
+- Comprehensive tiebreak metrics computed out-of-the-box:
+  - **Match Points (PTS)**
+  - **Buchholz System (BH)**
   - **Median Buchholz (BH-1)**
   - **Sonneborn-Berger (SB)**
   - **Koya System**
-  - **Tournament Performance Rating (TPR)**
-- Initial tiebreaking prioritizing newly registered players before round 1 begins.
+  - **Tournament Performance Rating (TPR / $R_p$)**
 
-### 🗂️ Divided Round Navigation
-- Intuitive, dedicated navigation for every round of the tournament:
-  - **`Pairing :`** `[Rd 1]` `[Rd 2]` `[Rd 3]` — View match tables, board assignments, and enter game scores.
-  - **`Results :`** `[Rd 1]` `[Rd 2]` `[Rd 3]` — View exact historical tournament standings as they stood after each specific completed round.
+### 🗂️ Round Navigation & Arbiter Controls
+- **Pairing Views:** Dedicated boards, assigned colors, and direct score dropdowns.
+- **Historical Round Results:** Inspect historical tournament standings as they stood after each specific completed round.
+- **Arbiter Safety Controls:**
+  - One-click pairing undo for draft rounds.
+  - Reopen completed rounds to amend misreported scores without data corruption.
+  - Granular tournament arbiter delegations by Super Admins.
 
-### ⏪ Arbiters Control (Undo & Reopen)
-- **Undo Pairings:** Delete accidental draft round pairings with a single click.
-- **Reopen Completed Rounds:** Correct a misreported score from a previous round without corrupting or losing subsequent tournament data.
-- **Roster Lock:** Automatically locks player additions once rounds have commenced.
-
-### 👤 Interactive Player Profiles & Cards
-- Click any player name to view detailed statistics:
-  - Starting rank & current standing
-  - Rating & performance rating ($R_p$)
-  - Board-by-board match histories with opponent details and outcomes.
-
-### 🎨 Modern Dark-Mode UI
-- Built with a custom glassmorphism dark theme, smooth micro-interactions, responsive mobile layout, and zero third-party UI framework dependencies.
+### 👤 Interactive Profiles & Modern UI
+- Player cards featuring full tournament match logs, performance ratings, and score breakdowns.
+- Modern dark/light glassmorphism interface with instant client-side theme switching.
+- Responsive design tailored for desktops, tablets, and mobile devices at the venue.
 
 ---
 
 ## 🛠️ Technology Stack
 
-- **Backend:** Pure PHP (8.0+) RESTful JSON API
-- **Frontend:** Vanilla JavaScript (ES6+ Single Page Application), Vanilla CSS3 (Custom Design System)
-- **Database:** SQLite (default for local & zero-config) / MySQL (cPanel / production ready)
-- **Typography:** Inter (Google Fonts)
+| Layer | Technology |
+|---|---|
+| **Backend** | Pure PHP 8.0+ RESTful JSON API |
+| **Frontend** | Vanilla ES6+ SPA, Vanilla CSS3 (Glassmorphism design system) |
+| **Database** | SQLite (default zero-config) / MySQL 5.7+ / MariaDB |
+| **Fonts** | Inter (Google Fonts) |
 
 ---
 
@@ -75,66 +64,76 @@ Unlike heavy modern JavaScript frameworks that require complex server setups and
 
 ### 1. Local Quick Start (SQLite)
 
-Clone the repository and start the built-in PHP server:
+Clone the repository and start PHP's built-in web server:
 
 ```bash
-# Navigate to directory
-cd ChessResults_Ceila-main
+# Clone the repository
+git clone https://github.com/MDTHA-X/rosetta-for-all.git
+cd rosetta-for-all
 
-# Start server with SQLite extension enabled
+# Start local server with SQLite support
 php -S localhost:8000 -d extension=pdo_sqlite
 ```
 
-Visit **`http://localhost:8000`** in your browser.
+Open your browser and navigate to **`http://localhost:8000`**.
 
 ---
 
 ### 2. Production / cPanel Deployment (MySQL)
 
-1. Upload the project files to your server's `public_html` directory.
-2. In cPanel, create a new MySQL database and user.
-3. Import `schema.sql` via **phpMyAdmin**.
-4. Configure your database connection in `includes/db.php`:
+1. Upload the files to your web root (e.g., `public_html`).
+2. Create a MySQL database and user in cPanel.
+3. Import `schema.sql` into your database (via phpMyAdmin or MySQL CLI).
+4. Copy `config.sample.php` to `config.php` and configure your credentials:
    ```php
-   define('DB_HOST', 'localhost');
-   define('DB_NAME', 'your_database_name');
-   define('DB_USER', 'your_database_user');
-   define('DB_PASS', 'your_database_password');
+   define('DB_DRIVER', 'mysql');
+   define('DB_HOST',   'localhost');
+   define('DB_NAME',   'your_database_name');
+   define('DB_USER',   'your_database_user');
+   define('DB_PASS',   'your_database_password');
    ```
 
 ---
 
-## 🔑 Default Admin Account
+## 🔑 Default Credentials
 
-An administrator account is pre-configured in the database:
+The initial database seed includes default administrative accounts:
 
-- **Username:** `admin`
-- **Password:** `admin`
+| Role | Username | Password | Notes |
+|---|---|---|---|
+| **Super Admin** | `mdtha` | `mdtha` | Full system access, can create admins and tournaments |
+| **Admin** | `admin` | `admin` | Administrative tournament manager |
 
-> *Note: Please update the administrator credentials after initial setup.*
+> ⚠️ *Important: Update administrative passwords immediately after initial deployment using the in-app password manager (`#change-password`).*
 
 ---
 
 ## 📁 Project Structure
 
 ```text
+rosetta-for-all/
 ├── api/
-│   ├── auth.php         # Authentication & login sessions
+│   ├── admins.php       # Admin CRUD & password management
+│   ├── login.php        # Authentication & session verification
 │   ├── pairings.php     # Board results updating
-│   ├── players.php      # Player CRUD & registration
+│   ├── players.php      # Player roster management & ratings
 │   ├── rounds.php       # Swiss round generation, completion & standings API
-│   └── tournaments.php  # Tournament creation & management
+│   └── tournaments.php  # Tournament creation & arbiter assignment
 ├── assets/
-│   ├── app.js           # Single Page Application core logic & router
-│   └── style.css        # Modern dark-mode styling system
+│   ├── app.js           # Single Page Application core router & UI rendering
+│   └── style.css        # Responsive dark/light theme stylesheet
 ├── includes/
-│   ├── auth.php         # Session validation & security
-│   ├── db.php           # Database connection handler (PDO)
-│   ├── pairing.php      # FIDE Swiss pairing engine
-│   └── scoring.php      # Standings & tiebreak algorithms (Buchholz, SB, TPR)
-├── index.php            # SPA root entry point
-├── schema.sql           # MySQL database schema
-├── schema_sqlite.sql    # SQLite database schema
+│   ├── auth.php         # Authentication helpers, session & permission checks
+│   ├── db.php           # Unified PDO database handler (SQLite & MySQL)
+│   ├── pairing.php      # Swiss pairing engine
+│   └── scoring.php      # FIDE tiebreak algorithms (Buchholz, SB, TPR)
+├── config.sample.php    # Sample configuration for production environments
+├── database.sqlite      # Pre-seeded SQLite database for instant local run
+├── index.php            # Application entry point & SPA shell
+├── init_sqlite.php      # SQLite database re-initializer
+├── schema.sql           # MySQL database schema definition
+├── schema_sqlite.sql    # SQLite database schema definition
+├── setup_db.php         # Database migration script
 └── README.md            # Documentation
 ```
 
@@ -142,4 +141,4 @@ An administrator account is pre-configured in the database:
 
 ## 📄 License
 
-This project is open-source and available under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE).
