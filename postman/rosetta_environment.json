@@ -1,0 +1,42 @@
+{
+  "id": "rosetta-env-local",
+  "name": "Rosetta Local Environment",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:5001/api",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "authToken",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "tournamentId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "roundId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "pairingId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "newAdminId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    }
+  ]
+}

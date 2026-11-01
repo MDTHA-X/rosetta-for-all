@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  # MySQL Database Service
+  mysql:
+    image: mysql:8.0
+    container_name: rosetta_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: rosetta_for_all
+      MYSQL_USER: rosetta_user
+      MYSQL_PASSWORD: rosetta_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./server/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Node.js Express Backend Service (MVC Architecture)
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: rosetta_server
+    restart: always
+    environment:
+      NODE_ENV: production
+      PORT: 5001
+      DB_DRIVER: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASS: rootpassword
+      DB_NAME: rosetta_for_all
+      JWT_SECRET: rosetta-production-jwt-secret-key-2026
+      CLIENT_URL: http://localhost:3000
+    ports:
+      - "5001:5001"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  # Client Application Service (React Native format running on distinct origin)
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: rosetta_client
+    restart: always
+    environment:
+      PORT: 3000
+      REACT_APP_API_URL: http://localhost:5001/api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+
+volumes:
+  mysql_data:

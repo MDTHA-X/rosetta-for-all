@@ -1,0 +1,22 @@
+{
+  "name": "rosetta-for-all-root",
+  "version": "2.0.0",
+  "description": "Rosetta For All - Swiss Tournament Platform (React Native Client + Node.js MySQL Server)",
+  "private": true,
+  "scripts": {
+    "start:server": "cd server && npm start",
+    "init:db": "cd server && npm run init-db",
+    "test:newman": "cd server && npm run test:newman",
+    "start:client": "cd client && npm start"
+  },
+  "keywords": [
+    "swiss-pairing",
+    "fide-standings",
+    "react-native",
+    "express",
+    "mysql",
+    "tournament-management"
+  ],
+  "author": "MDTHA-X",
+  "license": "MIT"
+}

@@ -1,0 +1,630 @@
+{
+  "info": {
+    "_postman_id": "c1f7a268-7d84-4b53-9a74-d4b8e8f81a50",
+    "name": "Rosetta For All API Tests",
+    "description": "Comprehensive Newman test suite for Rosetta For All REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01. System Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "const json = pm.response.json();",
+              "pm.test('Health status is ok', function () { pm.expect(json.status).to.eql('ok'); });",
+              "pm.test('Service name matches', function () { pm.expect(json.service).to.eql('Rosetta For All API'); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "02. Auth - Invalid Credentials",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"username\":\"invalid_user\",\"password\":\"wrong_pass\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["auth", "login"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 401', function () { pm.response.to.have.status(401); });",
+              "const json = pm.response.json();",
+              "pm.test('Returns invalid credentials error', function () { pm.expect(json.error).to.eql('Invalid credentials'); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "03. Auth - Valid Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"username\":\"mdtha\",\"password\":\"mdtha\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["auth", "login"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "const json = pm.response.json();",
+              "pm.test('Login returns token', function () { pm.expect(json.token).to.be.a('string'); });",
+              "pm.test('User is super admin', function () { pm.expect(json.user.is_super).to.be.true; });",
+              "pm.environment.set('authToken', json.token);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "04. Auth - Verify Token (/auth/me)",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/auth/me",
+          "host": ["{{baseUrl}}"],
+          "path": ["auth", "me"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "const json = pm.response.json();",
+              "pm.test('Logged in user is verified', function () { pm.expect(json.logged_in).to.be.true; pm.expect(json.username).to.eql('mdtha'); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "05. Tournament - Create Tournament",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{authToken}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\":\"Newman Championship 2026\",\"slug\":\"newman-champ-2026\",\"type\":\"open\",\"time_control\":\"10+5\",\"rounds_count\":5}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/tournaments",
+          "host": ["{{baseUrl}}"],
+          "path": ["tournaments"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 201', function () { pm.response.to.have.status(201); });",
+              "const json = pm.response.json();",
+              "pm.test('Tournament created with correct slug', function () { pm.expect(json.slug).to.eql('newman-champ-2026'); });",
+              "pm.environment.set('tournamentId', json.id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "06. Tournament - Get By ID",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/tournaments/{{tournamentId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["tournaments", "{{tournamentId}}"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "const json = pm.response.json();",
+              "pm.test('Tournament name matches', function () { pm.expect(json.name).to.eql('Newman Championship 2026'); });",
+              "pm.test('can_manage is true', function () { pm.expect(json.can_manage).to.be.true; });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "07. Player - Add Player 1",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{authToken}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"tournament_id\":{{tournamentId}},\"name\":\"Grandmaster Alice\",\"title\":\"GM\",\"rating\":2650,\"batch\":\"2026\",\"sex\":\"F\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/players",
+          "host": ["{{baseUrl}}"],
+          "path": ["players"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 201', function () { pm.response.to.have.status(201); });",
+              "const json = pm.response.json();",
+              "pm.test('Player 1 created', function () { pm.expect(json.name).to.eql('Grandmaster Alice'); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "08. Player - Add Player 2",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{authToken}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"tournament_id\":{{tournamentId}},\"name\":\"Grandmaster Bob\",\"title\":\"GM\",\"rating\":2600,\"batch\":\"2026\",\"sex\":\"M\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/players",
+          "host": ["{{baseUrl}}"],
+          "path": ["players"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 201', function () { pm.response.to.have.status(201); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "09. Player - Add Player 3",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{authToken}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"tournament_id\":{{tournamentId}},\"name\":\"Master Charlie\",\"title\":\"IM\",\"rating\":2450,\"batch\":\"2026\",\"sex\":\"M\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/players",
+          "host": ["{{baseUrl}}"],
+          "path": ["players"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 201', function () { pm.response.to.have.status(201); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "10. Player - Add Player 4",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{authToken}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"tournament_id\":{{tournamentId}},\"name\":\"Candidate Master Diana\",\"title\":\"CM\",\"rating\":2250,\"batch\":\"2026\",\"sex\":\"F\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/players",
+          "host": ["{{baseUrl}}"],
+          "path": ["players"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 201', function () { pm.response.to.have.status(201); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "11. Player - List Tournament Players",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/players?tournament_id={{tournamentId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["players"],
+          "query": [{ "key": "tournament_id", "value": "{{tournamentId}}" }]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "const json = pm.response.json();",
+              "pm.test('Tournament has 4 players registered', function () { pm.expect(json.length).to.eql(4); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "12. Rounds - Generate Swiss Round 1",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{authToken}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"tournament_id\":{{tournamentId}}}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/rounds/generate",
+          "host": ["{{baseUrl}}"],
+          "path": ["rounds", "generate"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 201', function () { pm.response.to.have.status(201); });",
+              "const json = pm.response.json();",
+              "pm.test('Round generated successfully', function () { pm.expect(json.success).to.be.true; });",
+              "pm.environment.set('roundId', json.round_id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "13. Rounds - Get Pairings for Round 1",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/rounds?tournament_id={{tournamentId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["rounds"],
+          "query": [{ "key": "tournament_id", "value": "{{tournamentId}}" }]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "const json = pm.response.json();",
+              "pm.test('Round 1 exists with 2 pairings boards', function () {",
+              "  const round1 = json.find(r => r.number === 1);",
+              "  pm.expect(round1).to.exist;",
+              "  pm.expect(round1.pairings.length).to.eql(2);",
+              "  pm.environment.set('pairingId', round1.pairings[0].id);",
+              "  pm.environment.set('pairingId2', round1.pairings[1].id);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "14. Rounds - Enter Result on Board 1 (1-0)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{authToken}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"pairing_id\":{{pairingId}},\"result\":\"1-0\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/rounds/pairings/result",
+          "host": ["{{baseUrl}}"],
+          "path": ["rounds", "pairings", "result"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "const json = pm.response.json();",
+              "pm.test('Result recorded', function () { pm.expect(json.success).to.be.true; });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "15. Rounds - Enter Result on Board 2 (1/2)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{authToken}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"pairing_id\":{{pairingId2}},\"result\":\"1/2\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/rounds/pairings/result",
+          "host": ["{{baseUrl}}"],
+          "path": ["rounds", "pairings", "result"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "16. Rounds - Complete Round 1",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{authToken}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"tournament_id\":{{tournamentId}},\"round_id\":{{roundId}}}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/rounds/complete",
+          "host": ["{{baseUrl}}"],
+          "path": ["rounds", "complete"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "const json = pm.response.json();",
+              "pm.test('Round completed', function () { pm.expect(json.success).to.be.true; });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "17. Standings - Dynamic Tiebreak Standings",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/rounds?tournament_id={{tournamentId}}&standings=true",
+          "host": ["{{baseUrl}}"],
+          "path": ["rounds"],
+          "query": [
+            { "key": "tournament_id", "value": "{{tournamentId}}" },
+            { "key": "standings", "value": "true" }
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "const json = pm.response.json();",
+              "pm.test('Standings calculated for all 4 players', function () { pm.expect(json.standings.length).to.eql(4); });",
+              "pm.test('First rank has highest score (1.0)', function () { pm.expect(json.standings[0].score).to.eql(1); });",
+              "pm.test('Tiebreak fields present', function () {",
+              "  const s = json.standings[0];",
+              "  pm.expect(s).to.have.property('buchholz');",
+              "  pm.expect(s).to.have.property('sonnebornBerger');",
+              "  pm.expect(s).to.have.property('koya');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "18. Admin - Create New Arbiter",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{authToken}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"username\":\"arbiter_newman\",\"password\":\"arbiter_pass\",\"is_super\":0,\"tournament_ids\":[{{tournamentId}}]}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/admins",
+          "host": ["{{baseUrl}}"],
+          "path": ["admins"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 201', function () { pm.response.to.have.status(201); });",
+              "const json = pm.response.json();",
+              "pm.test('Admin created', function () { pm.expect(json.username).to.eql('arbiter_newman'); });",
+              "pm.environment.set('newAdminId', json.id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "19. Admin - List All Admins",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/admins",
+          "host": ["{{baseUrl}}"],
+          "path": ["admins"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "const json = pm.response.json();",
+              "pm.test('Includes newly created admin', function () {",
+              "  const found = json.find(a => a.username === 'arbiter_newman');",
+              "  pm.expect(found).to.exist;",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "20. Clean Up - Delete Arbiter",
+      "request": {
+        "method": "DELETE",
+        "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/admins/{{newAdminId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["admins", "{{newAdminId}}"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "21. Clean Up - Delete Tournament",
+      "request": {
+        "method": "DELETE",
+        "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/tournaments/{{tournamentId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["tournaments", "{{tournamentId}}"]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
